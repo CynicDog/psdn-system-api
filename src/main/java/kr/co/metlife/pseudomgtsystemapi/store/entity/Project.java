@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,4 +46,7 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "PSEUDO_USER_ID", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConfigTable> configTables = new ArrayList<>();
 }

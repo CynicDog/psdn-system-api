@@ -26,6 +26,6 @@ public class User {
     @Column(name = "PSEUDO_USERNAME", unique = true, nullable = false)
     private String username;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Project> projects = new HashSet<>();
 }
