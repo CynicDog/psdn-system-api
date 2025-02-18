@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,7 +22,6 @@ public class ConfigTableColumn extends TableColumn {
     @JoinColumn(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
     private ConfigTable configTable;
 
-    @ManyToOne
-    @JoinColumn(name = "PSEUDO_RULE_ID", nullable = true)
-    private Rule rule;
+    @OneToMany(mappedBy = "configTableColumn", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConfigColumnRule> rules;
 }
