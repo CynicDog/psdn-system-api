@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -24,6 +25,9 @@ public class TableColumn {
     @Id @UuidGenerator
     @Column(name = "PSEUDO_TABLE_COLUMN_ID")
     private UUID uuid;
+
+    @Column(name = "COLUMN_ID", insertable = false, updatable = false)
+    private Integer id;
 
     @Column(name = "COLUMN_NAME", nullable = false)
     private String name;
@@ -63,4 +67,12 @@ public class TableColumn {
     @ManyToOne
     @JoinColumn(name = "PSEUDO_TABLE_ID", nullable = false)
     private kr.co.metlife.pseudomgtsystemapi.store.entity.Table table;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PSEUDO_COLUMN_RULE",
+            joinColumns = @JoinColumn(name = "PSEUDO_TABLE_COLUMN_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PSEUDO_RULE_ID")
+    )
+    private List<Rule> rules;
 }

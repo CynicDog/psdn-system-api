@@ -10,9 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter @Setter
@@ -25,6 +23,9 @@ public class Table {
     @Id @UuidGenerator
     @Column(name = "PSEUDO_TABLE_ID")
     private UUID uuid;
+
+    @Column(name = "TABLE_ID", insertable = false, updatable = false)
+    private Integer id;
 
     @Column(name = "TABLE_NAME", nullable = false)
     private String name;
@@ -45,6 +46,9 @@ public class Table {
 
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
+
+    @ManyToMany(mappedBy = "tables", fetch = FetchType.LAZY)
+    private Set<Project> projects = new HashSet<>();
 
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TableColumn> columns = new ArrayList<>();

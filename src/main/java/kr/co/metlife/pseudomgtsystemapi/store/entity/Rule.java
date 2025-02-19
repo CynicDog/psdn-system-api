@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,6 +25,9 @@ public class Rule {
     @Id @UuidGenerator
     @Column(name = "PSEUDO_RULE_ID")
     private UUID uuid;
+
+    @Column(name = "RULE_ID", insertable = false, updatable = false)
+    private Integer id;
 
     @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false)
     private String attributeName;
@@ -51,6 +55,14 @@ public class Rule {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @OneToMany(mappedBy = "rule", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Parameter> parameters;
+    @ManyToMany(mappedBy = "rules", fetch = FetchType.LAZY)
+    private Set<TableColumn> columns;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PSEUDO_RULE_PARAMETER",
+            joinColumns = @JoinColumn(name = "PSEUDO_RULE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PSEUDO_PARAMETER_ID")
+    )
+    private List<Parameter> parameters;
 }

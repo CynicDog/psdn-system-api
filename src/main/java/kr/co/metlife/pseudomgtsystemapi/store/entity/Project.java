@@ -26,6 +26,9 @@ public class Project {
     @Column(name = "PSEUDO_PROJECT_ID")
     private UUID uuid;
 
+    @Column(name = "PROJECT_ID", insertable = false, updatable = false)
+    private Integer id;
+
     @Column(name = "PROJECT_NAME", nullable = false)
     private String name;
 
@@ -47,6 +50,11 @@ public class Project {
     @JoinColumn(name = "PSEUDO_USER_ID", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ConfigTable> configTables = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "PSEUDO_PROJECT_TABLE",
+            joinColumns = @JoinColumn(name = "PSEUDO_PROJECT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PSEUDO_TABLE_ID")
+    )
+    private List<kr.co.metlife.pseudomgtsystemapi.store.entity.Table> tables = new ArrayList<>();
 }
