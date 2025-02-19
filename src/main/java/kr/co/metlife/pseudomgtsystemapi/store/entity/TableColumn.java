@@ -19,7 +19,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "PSEUDO_TABLE_COLUMN")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class TableColumn {
 
     @Id @UuidGenerator

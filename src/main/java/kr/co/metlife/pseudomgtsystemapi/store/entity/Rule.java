@@ -18,7 +18,6 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 @jakarta.persistence.Table(name = "PSEUDO_RULE")
 public class Rule {
 

@@ -19,7 +19,6 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 @jakarta.persistence.Table(name = "PSEUDO_PARAMETER")
 public class Parameter {
 

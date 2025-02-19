@@ -17,7 +17,6 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @jakarta.persistence.Table(name = "PSEUDO_TABLE")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Table {
 
     @Id @UuidGenerator
