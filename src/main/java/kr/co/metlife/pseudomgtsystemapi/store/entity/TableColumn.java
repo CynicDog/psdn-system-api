@@ -73,4 +73,12 @@ public class TableColumn {
         this.logicalName = logicalName;
         this.dataType = dataType;
     }
+
+    public TableColumn(String name, String logicalName, String dataType, kr.co.metlife.pseudomgtsystemapi.store.entity.Table table) {
+        setUuid(UUID.randomUUID());
+        this.name = name;
+        this.logicalName = logicalName;
+        this.dataType = dataType;
+        this.table = table;
+    }
 }

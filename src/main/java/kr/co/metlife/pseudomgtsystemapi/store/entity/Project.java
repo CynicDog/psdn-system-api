@@ -65,6 +65,17 @@ public class Project {
         this.name = name;
         this.sequence = sequence;
         this.explanation = explanation;
-        setUser(user);
+        this.user = user;
+    }
+
+    public void addConfigTable(kr.co.metlife.pseudomgtsystemapi.store.entity.Table table) {
+
+        ConfigTable configTable = new ConfigTable(table.getName(), table.getLogicalName());
+        configTable.setProject(this);
+
+        if (this.configTables == null) {
+            this.configTables = new ArrayList<>();
+        }
+        configTables.add(configTable);
     }
 }

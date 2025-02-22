@@ -54,6 +54,11 @@ public class ConfigTable {
     private Project project;
 
     public ConfigTable() {
+    }
+
+    public ConfigTable(String name, String logicalName) {
         setUuid(UUID.randomUUID());
+        this.name = name;
+        this.logicalName = logicalName;
     }
 }

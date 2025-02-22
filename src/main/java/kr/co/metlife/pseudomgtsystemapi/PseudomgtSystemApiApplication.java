@@ -47,7 +47,7 @@ public class PseudomgtSystemApiApplication {
                 Parameter P18 = new Parameter("percentile_value", "분위값", "Percentile Value", "Float", "", "");
                 Parameter P19 = new Parameter("record_deletion_yn", "레코드삭제여부", "Record Deletion YN", "Boolean", "", "");
 
-                parameterRepository.saveAll(List.of(  P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19));
+                parameterRepository.saveAll(List.of(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19));
 
                 Rule R1 = new Rule("suppression", "삭제", "Suppression", "");
                 Rule R2 = new Rule("masking", "마스킹", "Masking", "");
@@ -67,40 +67,49 @@ public class PseudomgtSystemApiApplication {
                 ruleRepository.saveAll(List.of(R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14));
             }
 
-            {  /* Pattern 1: 부모-자식 간 관계가 부모에서 정의되고, DB insert 역시 부모 repo에서만 실행되는 패턴 */
-                TableColumn TC1 = new TableColumn("COL_1", "COL_1", "VARCHAR");
-                TableColumn TC2 = new TableColumn("COL_2", "COL_2", "DECIMAL");
-                TableColumn TC3 = new TableColumn("COL_3", "COL_3", "VARCHAR");
-                TableColumn TC4 = new TableColumn("COL_4", "COL_4", "VARCHAR");
-                TableColumn TC5 = new TableColumn("COL_5", "COL_5", "DECIMAL");
-                TableColumn TC6 = new TableColumn("COL_6", "COL_6", "DECIMAL");
-                TableColumn TC7 = new TableColumn("COL_7", "COL_7", "VARCHAR");
-                TableColumn TC8 = new TableColumn("COL_8", "COL_8", "DECIMAL");
-                TableColumn TC9 = new TableColumn("COL_9", "COL_9", "VARCHAR");
-                TableColumn TC10 = new TableColumn("COL_10", "COL_10", "DECIMAL");
+            /* Pattern 1: 부모-자식 간 관계가 부모에서 정의되고, DB insert 역시 부모 repo에서만 실행되는 패턴 */
+            TableColumn TC1 = new TableColumn("COL_1", "COL_1", "VARCHAR");
+            TableColumn TC2 = new TableColumn("COL_2", "COL_2", "DECIMAL");
+            TableColumn TC3 = new TableColumn("COL_3", "COL_3", "VARCHAR");
+            TableColumn TC4 = new TableColumn("COL_4", "COL_4", "VARCHAR");
+            TableColumn TC5 = new TableColumn("COL_5", "COL_5", "DECIMAL");
+            TableColumn TC6 = new TableColumn("COL_6", "COL_6", "DECIMAL");
+            TableColumn TC7 = new TableColumn("COL_7", "COL_7", "VARCHAR");
+            TableColumn TC8 = new TableColumn("COL_8", "COL_8", "DECIMAL");
+            TableColumn TC9 = new TableColumn("COL_9", "COL_9", "VARCHAR");
+            TableColumn TC10 = new TableColumn("COL_10", "COL_10", "DECIMAL");
 
-                Table T1 = new Table("NRS", "NRS");
+            Table T1 = new Table("NRS", "NRS");
 
-                T1.addTableColumn(TC1); // 메소드를 통한 부모-자식 관계 정립 (1)
-                T1.addTableColumn(TC2);
-                T1.addTableColumn(TC3);
-                T1.addTableColumns(List.of(TC4, TC5, TC6, TC7, TC8, TC9, TC10)); // 메소드를 통한 부모-자식 관계 정립 (2)
+            T1.addTableColumn(TC1); // 메소드를 통한 부모-자식 관계 정립 (1)
+            T1.addTableColumn(TC2);
+            T1.addTableColumn(TC3);
+            T1.addTableColumns(List.of(TC4, TC5, TC6, TC7, TC8, TC9, TC10)); // 메소드를 통한 부모-자식 관계 정립 (2)
 
-                tableRepository.save(T1);
-            }
+            tableRepository.save(T1);
 
-            { /* Pattern 2: 부모-자식 간 관계가 자식에서 정의되고, DB insert는 양측 repo에서 실행되는 패턴 */
-                // Insert User
-                User U1 = new User("JohnDoe");
-                userRepository.save(U1);
+            TableColumn TC11 = new TableColumn("COL_11", "COL_11", "VARCHAR");
+            TableColumn TC12 = new TableColumn("COL_12", "COL_12", "VARCHAR");
+            TableColumn TC13 = new TableColumn("COL_13", "COL_13", "VARCHAR");
+            TableColumn TC14 = new TableColumn("COL_14", "COL_14", "VARCHAR");
+            TableColumn TC15 = new TableColumn("COL_15", "COL_15", "VARCHAR");
 
-                // Insert Projects
-                Project PR1 = new Project("Project-1", 0, "", U1); // 생성자를 통한 부모-자식 관계 정립
-                Project PR2 = new Project("Project-2", 1, "", U1);
-                Project PR3 = new Project("Project-3", 2, "", U1);
+            Table T2 = new Table("FDS", "FDS");
+            T2.addTableColumns(List.of(TC11, TC12, TC13, TC14, TC15));
 
-                projectRepository.saveAll(List.of(PR1, PR2, PR3));
-            }
+            tableRepository.save(T2);
+
+            /* Pattern 2: 부모-자식 간 관계가 자식에서 정의되고, DB insert는 양측 repo에서 실행되는 패턴 */
+            User U1 = new User("JohnDoe");
+            userRepository.save(U1);
+
+            Project PR1 = new Project("Project-1", 0, "", U1); // 자식 생성자를 통한 부모-자식 관계 정립
+            Project PR2 = new Project("Project-2", 1, "", U1);
+            Project PR3 = new Project("Project-3", 2, "", U1);
+            projectRepository.saveAll(List.of(PR1, PR2, PR3));
+
+            PR1.addConfigTable(T1);
+//            projectRepository.save(PR1);
         };
     }
 }
