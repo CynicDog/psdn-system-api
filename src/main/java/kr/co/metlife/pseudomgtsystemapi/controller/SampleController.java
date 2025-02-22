@@ -69,7 +69,7 @@ public class SampleController {
         ConfigTable foundTable = configTableRepository.findByProjectNameAndName(project, name);
         if (foundTable != null) {
             response.put("projectId", foundTable.getProject().getId());
-            response.put("projectId", foundTable.getProject().getName());
+            response.put("projectName", foundTable.getProject().getName());
             response.put("tableId", foundTable.getId());
             response.put("tableName", foundTable.getName());
             response.put("tableColumns", foundTable.getConfigColumns());
