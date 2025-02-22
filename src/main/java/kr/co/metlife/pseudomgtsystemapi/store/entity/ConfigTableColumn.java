@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
@@ -57,7 +59,7 @@ public class ConfigTableColumn  {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
     private ConfigTable configTable;
 
@@ -65,5 +67,13 @@ public class ConfigTableColumn  {
     private List<ConfigRule> rules;
 
     public ConfigTableColumn() {
+    }
+
+    public ConfigTableColumn(String name, String logicalName, String dataType, ConfigTable configTable) {
+        setUuid(UUID.randomUUID().toString());
+        this.name = name;
+        this.logicalName = logicalName;
+        this.dataType = dataType;
+        this.configTable = configTable;
     }
 }

@@ -68,6 +68,7 @@ public class PseudomgtSystemApiApplication {
             }
 
             /* Pattern 1: 부모-자식 간 관계가 부모에서 정의되고, DB insert 역시 부모 repo에서만 실행되는 패턴 */
+            // 대상 테이블 칼럼 정의 - 1
             TableColumn TC1 = new TableColumn("COL_1", "COL_1", "VARCHAR");
             TableColumn TC2 = new TableColumn("COL_2", "COL_2", "DECIMAL");
             TableColumn TC3 = new TableColumn("COL_3", "COL_3", "VARCHAR");
@@ -79,6 +80,7 @@ public class PseudomgtSystemApiApplication {
             TableColumn TC9 = new TableColumn("COL_9", "COL_9", "VARCHAR");
             TableColumn TC10 = new TableColumn("COL_10", "COL_10", "DECIMAL");
 
+            // 대상 테이블 정의 - 1
             Table T1 = new Table("NRS", "NRS");
 
             T1.addTableColumn(TC1); // 메소드를 통한 부모-자식 관계 정립 (1)
@@ -88,28 +90,36 @@ public class PseudomgtSystemApiApplication {
 
             tableRepository.save(T1);
 
+            // 대상 테이블 칼럼 정의 - 2
             TableColumn TC11 = new TableColumn("COL_11", "COL_11", "VARCHAR");
-            TableColumn TC12 = new TableColumn("COL_12", "COL_12", "VARCHAR");
+            TableColumn TC12 = new TableColumn("COL_12", "COL_12", "DECIMAL");
             TableColumn TC13 = new TableColumn("COL_13", "COL_13", "VARCHAR");
-            TableColumn TC14 = new TableColumn("COL_14", "COL_14", "VARCHAR");
-            TableColumn TC15 = new TableColumn("COL_15", "COL_15", "VARCHAR");
+            TableColumn TC14 = new TableColumn("COL_14", "COL_14", "DECIMAL");
+            TableColumn TC15 = new TableColumn("COL_15", "COL_15", "DECIMAL");
 
+            // 대상 테이블 정의 - 2
             Table T2 = new Table("FDS", "FDS");
             T2.addTableColumns(List.of(TC11, TC12, TC13, TC14, TC15));
 
             tableRepository.save(T2);
 
             /* Pattern 2: 부모-자식 간 관계가 자식에서 정의되고, DB insert는 양측 repo에서 실행되는 패턴 */
+            // 사용자 정의
             User U1 = new User("JohnDoe");
             userRepository.save(U1);
 
+            // 사용자의 프로젝트 생성
             Project PR1 = new Project("Project-1", 0, "", U1); // 자식 생성자를 통한 부모-자식 관계 정립
             Project PR2 = new Project("Project-2", 1, "", U1);
             Project PR3 = new Project("Project-3", 2, "", U1);
             projectRepository.saveAll(List.of(PR1, PR2, PR3));
 
-            PR1.addConfigTable(T1);
-            projectRepository.save(PR1);
+            // 사용자의 프로젝트 별 테이블 할당
+            PR1.addConfigTable(T1, T1.getColumns());
+            PR1.addConfigTable(T2, T2.getColumns());
+            PR2.addConfigTable(T1, T1.getColumns());
+            PR3.addConfigTable(T2, T2.getColumns());
+            projectRepository.saveAll(List.of(PR1, PR2, PR3));
         };
     }
 }

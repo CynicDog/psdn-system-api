@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +47,7 @@ public class ConfigTable {
     @OneToMany(mappedBy = "configTable", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConfigTableColumn> configColumns = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_PROJECT_ID", nullable = false)
     private Project project;
 
@@ -57,5 +58,19 @@ public class ConfigTable {
         setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.logicalName = logicalName;
+    }
+
+    public void addColumn(ConfigTableColumn column) {
+        if (this.configColumns == null) {
+            this.configColumns = new ArrayList<>();
+        }
+        this.configColumns.add(column);
+    }
+
+    public void addColumns(List<ConfigTableColumn> columns) {
+        if (this.configColumns == null) {
+            this.configColumns = new ArrayList<>();
+        }
+        columns.forEach(this::addColumn);
     }
 }

@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter @Setter
@@ -45,7 +47,7 @@ public class Project {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_USER_ID", nullable = false)
     private User user;
 
@@ -63,14 +65,22 @@ public class Project {
         this.user = user;
     }
 
-    public void addConfigTable(kr.co.metlife.pseudomgtsystemapi.store.entity.Table table) {
+    public void addConfigTable(kr.co.metlife.pseudomgtsystemapi.store.entity.Table table, List<TableColumn> columns) {
 
         ConfigTable configTable = new ConfigTable(table.getName(), table.getLogicalName());
         configTable.setProject(this);
 
+        // TableColumn -> ConfigTableColumn 형변환
+        List<ConfigTableColumn> configTableColumns = columns.stream()
+                .map(column -> new ConfigTableColumn(column.getName(), column.getLogicalName(), column.getDataType(), configTable))
+                .collect(Collectors.toList());
+
+        configTable.addColumns(configTableColumns);
+
         if (this.configTables == null) {
             this.configTables = new ArrayList<>();
         }
-        configTables.add(configTable);
+        this.configTables.add(configTable);
     }
+
 }
