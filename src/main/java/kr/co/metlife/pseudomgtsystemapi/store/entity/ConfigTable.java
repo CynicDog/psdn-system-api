@@ -20,7 +20,7 @@ import java.util.UUID;
 public class ConfigTable {
 
     @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONFIG_TABLE_ID")
@@ -35,14 +35,14 @@ public class ConfigTable {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -57,7 +57,7 @@ public class ConfigTable {
     }
 
     public ConfigTable(String name, String logicalName) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.logicalName = logicalName;
     }

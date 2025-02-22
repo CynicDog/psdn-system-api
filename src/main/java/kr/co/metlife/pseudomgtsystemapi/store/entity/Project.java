@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Project {
 
     @Column(name = "PSEUDO_PROJECT_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROJECT_ID")
@@ -39,14 +39,14 @@ public class Project {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -61,7 +61,7 @@ public class Project {
     }
 
     public Project(String name, Integer sequence, String explanation, User user) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.sequence = sequence;
         this.explanation = explanation;

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Table {
 
     @Column(name = "PSEUDO_TABLE_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TABLE_ID")
@@ -36,14 +36,14 @@ public class Table {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -54,7 +54,7 @@ public class Table {
     }
 
     public Table(String name, String logicalName) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.logicalName = logicalName;
     }

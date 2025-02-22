@@ -109,7 +109,7 @@ public class PseudomgtSystemApiApplication {
             projectRepository.saveAll(List.of(PR1, PR2, PR3));
 
             PR1.addConfigTable(T1);
-//            projectRepository.save(PR1);
+            projectRepository.save(PR1);
         };
     }
 }

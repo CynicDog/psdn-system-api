@@ -19,7 +19,7 @@ import java.util.UUID;
 public class TableColumn {
 
     @Column(name = "PSEUDO_TABLE_COLUMN_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TABLE_COLUMN_ID")
@@ -49,14 +49,14 @@ public class TableColumn {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -68,14 +68,14 @@ public class TableColumn {
     }
 
     public TableColumn(String name, String logicalName, String dataType) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.logicalName = logicalName;
         this.dataType = dataType;
     }
 
     public TableColumn(String name, String logicalName, String dataType, kr.co.metlife.pseudomgtsystemapi.store.entity.Table table) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.name = name;
         this.logicalName = logicalName;
         this.dataType = dataType;

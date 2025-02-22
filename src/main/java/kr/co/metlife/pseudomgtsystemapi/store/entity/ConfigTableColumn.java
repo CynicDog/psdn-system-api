@@ -19,7 +19,7 @@ import java.util.UUID;
 public class ConfigTableColumn  {
 
     @Column(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONFIG_TABLE_COLUMN_ID")
@@ -49,14 +49,14 @@ public class ConfigTableColumn  {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -68,6 +68,5 @@ public class ConfigTableColumn  {
     private List<ConfigRule> rules;
 
     public ConfigTableColumn() {
-        setUuid(UUID.randomUUID());
     }
 }

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Rule {
 
     @Column(name = "PSEUDO_RULE_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RULE_ID")
@@ -42,14 +42,14 @@ public class Rule {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -57,7 +57,7 @@ public class Rule {
     }
 
     public Rule(String attributeName, String nameKorean, String nameEnglish, String explanation) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.attributeName = attributeName;
         this.nameKorean = nameKorean;
         this.nameEnglish = nameEnglish;

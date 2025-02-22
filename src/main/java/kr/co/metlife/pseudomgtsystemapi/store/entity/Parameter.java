@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Parameter {
 
     @Column(name = "PSEUDO_PARAMETER_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Column(name = "PARAMETER_ID")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,14 +48,14 @@ public class Parameter {
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "INPUT_TIMESTAMP")
     private LocalDateTime inputTimestamp;
 
     @Column(name = "UPDATE_USER_CODE")
     private String updateUserCode;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
@@ -63,7 +63,7 @@ public class Parameter {
     }
 
     public Parameter(String attributeName, String nameKorean, String nameEnglish, String type, Object value, String explanation) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.attributeName = attributeName;
         this.nameKorean = nameKorean;
         this.nameEnglish = nameEnglish;

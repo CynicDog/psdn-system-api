@@ -18,7 +18,7 @@ import java.util.UUID;
 public class User {
 
     @Column(name = "PSEUDO_USER_ID", nullable = false)
-    private UUID uuid;
+    private String uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
@@ -34,7 +34,7 @@ public class User {
     }
 
     public User(String username) {
-        setUuid(UUID.randomUUID());
+        setUuid(UUID.randomUUID().toString());
         this.username = username;
     }
 }
