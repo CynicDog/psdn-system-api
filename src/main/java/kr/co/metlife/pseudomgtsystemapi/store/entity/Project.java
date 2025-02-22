@@ -47,6 +47,7 @@ public class Project {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
+    // TODO: Bidirectional Eager Fetch && JsonIgnore => Lazy Fetch
     @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_USER_ID", nullable = false)
     private User user;
