@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,7 +64,7 @@ public class ConfigTableColumn  {
     @JoinColumn(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
     private ConfigTable configTable;
 
-    @OneToMany(mappedBy = "configTableColumn", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "configTableColumn", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ConfigRule> rules;
 
     public ConfigTableColumn() {
@@ -75,5 +76,20 @@ public class ConfigTableColumn  {
         this.logicalName = logicalName;
         this.dataType = dataType;
         this.configTable = configTable;
+    }
+
+    public void addRule(ConfigRule rule) {
+        if (this.rules == null) {
+            this.rules = new ArrayList<>();
+        }
+        rule.setConfigTableColumn(this);
+        this.rules.add(rule);
+    }
+
+    public void addRules(List<ConfigRule> rules) {
+        if (this.rules == null) {
+            this.rules = new ArrayList<>();
+        }
+        rules.forEach(this::addRule);
     }
 }

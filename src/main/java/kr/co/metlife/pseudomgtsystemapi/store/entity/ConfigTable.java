@@ -44,7 +44,7 @@ public class ConfigTable {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @OneToMany(mappedBy = "configTable", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "configTable", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ConfigTableColumn> configColumns = new ArrayList<>();
 
     @ManyToOne @JsonIgnore

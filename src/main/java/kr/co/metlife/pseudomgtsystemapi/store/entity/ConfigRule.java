@@ -1,12 +1,16 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
@@ -33,6 +37,9 @@ public class ConfigRule {
     @Column(name = "EXPLANATION")
     private String explanation;
 
+    @Column(name = "RULE_SEQUENCE", nullable = false)
+    private Integer sequence;
+
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
 
@@ -47,16 +54,27 @@ public class ConfigRule {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @Column(name = "RULE_ORDER", nullable = false)
-    private Integer configRuleOrder;
-
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
     private ConfigTableColumn configTableColumn;
 
     @OneToMany(mappedBy = "configRule", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<ConfigParameter> configParameters;
+    Set<ConfigParameter> configParameters = new HashSet<>();
 
     public ConfigRule() {
+    }
+
+    public ConfigRule(Rule rule, Integer sequence, List<ConfigParameter> parameters) {
+        setUuid(UUID.randomUUID().toString());
+        this.attributeName = rule.getAttributeName();
+        this.nameKorean = rule.getNameKorean();
+        this.nameEnglish = rule.getNameEnglish();
+        this.explanation = rule.getExplanation();
+        this.sequence = sequence;
+
+        parameters.forEach(parameter -> {
+            parameter.setConfigRule(this);
+            this.configParameters.add(parameter);
+        });
     }
 }

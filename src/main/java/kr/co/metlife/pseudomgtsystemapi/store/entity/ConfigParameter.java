@@ -1,12 +1,15 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import kr.co.metlife.pseudomgtsystemapi.store.util.ParameterValueConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
@@ -34,7 +37,8 @@ public class ConfigParameter {
     private String type;
 
     @Column(name = "CONFIG_PARAMETER_VALUE", nullable = true)
-    private String value;
+    @Convert(converter = ParameterValueConverter.class)
+    private Object value;
 
     @Column(name = "INPUT_USER_CODE")
     private String inputUserCode;
@@ -50,10 +54,19 @@ public class ConfigParameter {
     @Column(name = "UPDATE_TIMESTAMP")
     private LocalDateTime updateTimestamp;
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     @JoinColumn(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
     private ConfigRule configRule;
 
     public ConfigParameter() {
+    }
+
+    public ConfigParameter(Parameter parameter, String value) {
+        setUuid(UUID.randomUUID().toString());
+        this.attributeName = parameter.getAttributeName();
+        this.nameKorean = parameter.getNameKorean();
+        this.nameEnglish = parameter.getNameEnglish();
+        this.type = parameter.getType();
+        this.value = value;
     }
 }

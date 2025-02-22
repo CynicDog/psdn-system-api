@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi;
 
+import jakarta.transaction.Transactional;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.*;
 import kr.co.metlife.pseudomgtsystemapi.store.repository.*;
 import org.springframework.boot.CommandLineRunner;
@@ -23,49 +24,49 @@ public class PseudomgtSystemApiApplication {
             ParameterRepository parameterRepository,
             TableRepository tableRepository,
             UserRepository userRepository,
-            ProjectRepository projectRepository) {
+            ProjectRepository projectRepository,
+            ConfigTableRepository configTableRepository,
+            ConfigTableColumnRepository configTableColumnRepository) {
         return args -> {
 
-            {
-                Parameter P1 = new Parameter("re_identification_yn", "재식별화키여부", "Re-Identification YN", "Boolean", "true", "");
-                Parameter P2 = new Parameter("replacement_statistics", "대체통계값", "Replacement Statistic", "Boolean", "true", "");
-                Parameter P3 = new Parameter("grouping_column", "연관칼럼", "Grouping Column", "String", "", "");
-                Parameter P4 = new Parameter("rounding_position", "라운딩위치", "Rounding Position", "Float", "", "");
-                Parameter P5 = new Parameter("rounding_mode", "라운딩모드", "Rounding Mode", "CODE_P5", "", "");
-                Parameter P6 = new Parameter("chaos_level", "무작위수준", "Chaos Level", "Integer", "", "");
-                Parameter P7 = new Parameter("scope_specification", "범위지정", "Scope Specification", "String", "", "");
-                Parameter P8 = new Parameter("replacement_letter", "대체문자", "Replacement Letter", "String", "", "");
-                Parameter P9 = new Parameter("threshold_criteria", "임계기준", "Threshold Criteria", "CODE_P9", "", "");
-                Parameter P10 = new Parameter("threshold_value", "임계값", "Threshold Value", "Float", "", "");
-                Parameter P11 = new Parameter("random_seed", "랜덤시드", "Random Seed", "Integer", "", "");
-                Parameter P12 = new Parameter("data_range_multiple", "데이터구간배수", "Data Range Multiple", "Integer", "", "");
-                Parameter P13 = new Parameter("counting_bin_size", "카운트구간길이", "Counting Bin Size", "Integer", "", "");
-                Parameter P14 = new Parameter("mapping_definition", "문자대체정의", "Mapping Definition", "String", "", "");
-                Parameter P15 = new Parameter("selection_dictionary", "단어추출사전", "Selection Dictionary", "String", "", "");
-                Parameter P16 = new Parameter("test_alternative", "검증유형", "Test Alternative", "CODE_P16", "", "");
-                Parameter P17 = new Parameter("percentile_criteria", "분위기준", "Percentile Criteria", "CODE_P17", "", "");
-                Parameter P18 = new Parameter("percentile_value", "분위값", "Percentile Value", "Float", "", "");
-                Parameter P19 = new Parameter("record_deletion_yn", "레코드삭제여부", "Record Deletion YN", "Boolean", "", "");
+            Parameter P1 = new Parameter("re_identification_yn", "재식별화키여부", "Re-Identification YN", "Boolean", "true", "");
+            Parameter P2 = new Parameter("replacement_statistics", "대체통계값", "Replacement Statistic", "Boolean", "true", "");
+            Parameter P3 = new Parameter("grouping_column", "연관칼럼", "Grouping Column", "String", "", "");
+            Parameter P4 = new Parameter("rounding_position", "라운딩위치", "Rounding Position", "Float", "", "");
+            Parameter P5 = new Parameter("rounding_mode", "라운딩모드", "Rounding Mode", "CODE_P5", "", "");
+            Parameter P6 = new Parameter("chaos_level", "무작위수준", "Chaos Level", "Integer", "", "");
+            Parameter P7 = new Parameter("scope_specification", "범위지정", "Scope Specification", "String", "", "");
+            Parameter P8 = new Parameter("replacement_letter", "대체문자", "Replacement Letter", "String", "", "");
+            Parameter P9 = new Parameter("threshold_criteria", "임계기준", "Threshold Criteria", "CODE_P9", "", "");
+            Parameter P10 = new Parameter("threshold_value", "임계값", "Threshold Value", "Float", "", "");
+            Parameter P11 = new Parameter("random_seed", "랜덤시드", "Random Seed", "Integer", "", "");
+            Parameter P12 = new Parameter("data_range_multiple", "데이터구간배수", "Data Range Multiple", "Integer", "", "");
+            Parameter P13 = new Parameter("counting_bin_size", "카운트구간길이", "Counting Bin Size", "Integer", "", "");
+            Parameter P14 = new Parameter("mapping_definition", "문자대체정의", "Mapping Definition", "String", "", "");
+            Parameter P15 = new Parameter("selection_dictionary", "단어추출사전", "Selection Dictionary", "String", "", "");
+            Parameter P16 = new Parameter("test_alternative", "검증유형", "Test Alternative", "CODE_P16", "", "");
+            Parameter P17 = new Parameter("percentile_criteria", "분위기준", "Percentile Criteria", "CODE_P17", "", "");
+            Parameter P18 = new Parameter("percentile_value", "분위값", "Percentile Value", "Float", "", "");
+            Parameter P19 = new Parameter("record_deletion_yn", "레코드삭제여부", "Record Deletion YN", "Boolean", "", "");
 
-                parameterRepository.saveAll(List.of(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19));
+            parameterRepository.saveAll(List.of(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19));
 
-                Rule R1 = new Rule("suppression", "삭제", "Suppression", "");
-                Rule R2 = new Rule("masking", "마스킹", "Masking", "");
-                Rule R3 = new Rule("data_range", "범위방법", "Data Range", "");
-                Rule R4 = new Rule("outlier_generalization", "특이치범주화", "Outlier Generalization", "");
-                Rule R5 = new Rule("top_down_coding", "상하단코딩", "Top-Down Coding", "");
-                Rule R6 = new Rule("partial_suppression", "부분삭제", "Partial Suppression", "");
-                Rule R7 = new Rule("locality_nullify", "로컬무효화", "Locality Nullify", "");
-                Rule R8 = new Rule("group_aggregation", "그룹총계", "Group Aggregation", "");
-                Rule R9 = new Rule("rounding", "일반라운딩", "Rounding", "");
-                Rule R10 = new Rule("random_rounding", "랜덤라운딩", "Random Rounding", "");
-                Rule R11 = new Rule("noise_addition", "잡음추가", "Noise Addition", "");
-                Rule R12 = new Rule("permutation", "순열", "Permutation", "");
-                Rule R13 = new Rule("letters_replacement", "문자대체", "Letters Replacement", "");
-                Rule R14 = new Rule("random_selection_replacement", "단어사전무작위추출", "Random Selection Replacement", "");
+            Rule R1 = new Rule("suppression", "삭제", "Suppression", "");
+            Rule R2 = new Rule("masking", "마스킹", "Masking", "");
+            Rule R3 = new Rule("data_range", "범위방법", "Data Range", "");
+            Rule R4 = new Rule("outlier_generalization", "특이치범주화", "Outlier Generalization", "");
+            Rule R5 = new Rule("top_down_coding", "상하단코딩", "Top-Down Coding", "");
+            Rule R6 = new Rule("partial_suppression", "부분삭제", "Partial Suppression", "");
+            Rule R7 = new Rule("locality_nullify", "로컬무효화", "Locality Nullify", "");
+            Rule R8 = new Rule("group_aggregation", "그룹총계", "Group Aggregation", "");
+            Rule R9 = new Rule("rounding", "일반라운딩", "Rounding", "");
+            Rule R10 = new Rule("random_rounding", "랜덤라운딩", "Random Rounding", "");
+            Rule R11 = new Rule("noise_addition", "잡음추가", "Noise Addition", "");
+            Rule R12 = new Rule("permutation", "순열", "Permutation", "");
+            Rule R13 = new Rule("letters_replacement", "문자대체", "Letters Replacement", "");
+            Rule R14 = new Rule("random_selection_replacement", "단어사전무작위추출", "Random Selection Replacement", "");
 
-                ruleRepository.saveAll(List.of(R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14));
-            }
+            ruleRepository.saveAll(List.of(R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14));
 
             /* Pattern 1: 부모-자식 간 관계가 부모에서 정의되고, DB insert 역시 부모 repo에서만 실행되는 패턴 */
             // 대상 테이블 칼럼 정의 - 1
@@ -114,12 +115,40 @@ public class PseudomgtSystemApiApplication {
             Project PR3 = new Project("Project-3", 2, "", U1);
             projectRepository.saveAll(List.of(PR1, PR2, PR3));
 
-            // 사용자의 프로젝트 별 테이블 할당
+            // 사용자의 프로젝트 별 설정 테이블 할당
             PR1.addConfigTable(T1, T1.getColumns());
             PR1.addConfigTable(T2, T2.getColumns());
             PR2.addConfigTable(T1, T1.getColumns());
             PR3.addConfigTable(T2, T2.getColumns());
             projectRepository.saveAll(List.of(PR1, PR2, PR3));
+
+            /* Pattern 3: 부모-자식 간 관계가 부모 생성자를 통해 정의되는 패턴 */
+            // 설정 테이블 (NRS) 칼럼 가명화 규칙 적용
+            ConfigRule CR2 = new ConfigRule(R2, 0, List.of(
+                    new ConfigParameter(P7, "-2"),
+                    new ConfigParameter(P8, "*"))
+            );
+            ConfigRule CR3 = new ConfigRule(R3, 0, List.of(
+                    new ConfigParameter(P12, "3"))
+            );
+            ConfigRule CR9 = new ConfigRule(R9, 0, List.of(
+                    new ConfigParameter(P4, "2"),
+                    new ConfigParameter(P5, "nearest")
+            ));
+
+            ConfigTable CT1 = configTableRepository.findByProjectNameAndName(PR1.getName(), PR1.getConfigTables().get(0).getName());
+            List<ConfigTableColumn> columns = CT1.getConfigColumns();
+            columns.forEach(col -> {
+                if (col.getDataType().equals("VARCHAR")) {
+                    // VARCHAR 타입 칼럼에 대하여 마스킹 가명화기술 적용
+                    col.addRule(CR2);
+                } else if (col.getDataType().equals("DECIMAL")) {
+                    // DECIMAL 타입 칼럼에 대하여 범위방법, 일반라운딩 적용
+                    col.addRules(List.of(CR3, CR9));
+                }
+
+                configTableColumnRepository.save(col);
+            });
         };
     }
 }
