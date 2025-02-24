@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import kr.co.metlife.pseudomgtsystemapi.store.util.ParameterValueConverter;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -14,12 +14,12 @@ import java.util.UUID;
 @jakarta.persistence.Table(name = "PSEUDO_PARAMETER")
 public class Parameter {
 
+    @Id @UuidGenerator
     @Column(name = "PSEUDO_PARAMETER_ID", nullable = false)
-    private String uuid;
+    private UUID uuid;
 
-    @Column(name = "PARAMETER_ID")
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "PSEUDO_RULE_ID", nullable = false)
+    private UUID ruleId;
 
     @Column(name = "PARAMETER_ATTRIBUTE_NAME", nullable = false)
     private String attributeName;
@@ -34,36 +34,9 @@ public class Parameter {
     private String type;
 
     @Convert(converter = ParameterValueConverter.class)
-    @Column(name = "PARAMETER_VALUE", nullable = false)
-    private Object value;
+    @Column(name = "PARAMETER_DEFAULT_VALUE", nullable = false)
+    private Object defaultValue;
 
     @Column(name = "EXPLANATION")
     private String explanation;
-
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
-
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
-    private LocalDateTime inputTimestamp;
-
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
-
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
-    private LocalDateTime updateTimestamp;
-
-    public Parameter() {
-    }
-
-    public Parameter(String attributeName, String nameKorean, String nameEnglish, String type, Object value, String explanation) {
-        setUuid(UUID.randomUUID().toString());
-        this.attributeName = attributeName;
-        this.nameKorean = nameKorean;
-        this.nameEnglish = nameEnglish;
-        this.type = type;
-        this.value = value;
-        this.explanation = explanation;
-    }
 }

@@ -1,28 +1,36 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import kr.co.metlife.pseudomgtsystemapi.store.util.ParameterValueConverter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter
-@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "PSEUDO_CONFIG_PARAMETER")
 public class ConfigParameter {
 
+    @Id
+    @UuidGenerator
     @Column(name = "PSEUDO_CONFIG_PARAMETER_ID", nullable = false)
-    private String uuid;
+    private UUID uuid;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CONFIG_PARAMETER_ID")
-    private Long id;
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
+    private UUID configTableId;
+
+    @Column(name = "CONFIG_TABLE_ITERATION")
+    private Integer configTableIteration;
+
+    @Column(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
+    private UUID configTableColumnId;
+
+    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
+    private UUID configRuleId;
 
     @Column(name = "CONFIG_PARAMETER_ATTRIBUTE_NAME", nullable = false)
     private String attributeName;
@@ -39,34 +47,4 @@ public class ConfigParameter {
     @Column(name = "CONFIG_PARAMETER_VALUE", nullable = true)
     @Convert(converter = ParameterValueConverter.class)
     private Object value;
-
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
-
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
-    private LocalDateTime inputTimestamp;
-
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
-
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
-    private LocalDateTime updateTimestamp;
-
-    @ManyToOne @JsonIgnore
-    @JoinColumn(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
-    private ConfigRule configRule;
-
-    public ConfigParameter() {
-    }
-
-    public ConfigParameter(Parameter parameter, String value) {
-        setUuid(UUID.randomUUID().toString());
-        this.attributeName = parameter.getAttributeName();
-        this.nameKorean = parameter.getNameKorean();
-        this.nameEnglish = parameter.getNameEnglish();
-        this.type = parameter.getType();
-        this.value = value;
-    }
 }

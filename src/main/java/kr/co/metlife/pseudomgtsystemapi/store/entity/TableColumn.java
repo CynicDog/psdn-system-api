@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "PSEUDO_TABLE_COLUMN")
 public class TableColumn {
 
+    @Id @UuidGenerator
     @Column(name = "PSEUDO_TABLE_COLUMN_ID", nullable = false)
-    private String uuid;
+    private UUID uuid;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TABLE_COLUMN_ID")
-    private Long id;
+    @Column(name = "PSEUDO_TABLE_ID", nullable = false)
+    private UUID tableId;
 
     @Column(name = "COLUMN_NAME", nullable = false)
     private String name;
@@ -40,40 +41,4 @@ public class TableColumn {
 
     @Column(name = "USE_CODE_GROUP_ID")
     private String useCodeGroupId;
-
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
-
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
-    private LocalDateTime inputTimestamp;
-
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
-
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
-    private LocalDateTime updateTimestamp;
-
-    @ManyToOne
-    @JoinColumn(name = "PSEUDO_TABLE_ID", nullable = false)
-    private kr.co.metlife.pseudomgtsystemapi.store.entity.Table table;
-
-    public TableColumn() {
-    }
-
-    public TableColumn(String name, String logicalName, String dataType) {
-        setUuid(UUID.randomUUID().toString());
-        this.name = name;
-        this.logicalName = logicalName;
-        this.dataType = dataType;
-    }
-
-    public TableColumn(String name, String logicalName, String dataType, kr.co.metlife.pseudomgtsystemapi.store.entity.Table table) {
-        setUuid(UUID.randomUUID().toString());
-        this.name = name;
-        this.logicalName = logicalName;
-        this.dataType = dataType;
-        this.table = table;
-    }
 }

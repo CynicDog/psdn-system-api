@@ -4,8 +4,8 @@ import kr.co.metlife.pseudomgtsystemapi.store.entity.ConfigTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ConfigTableRepository extends JpaRepository<ConfigTable, Long> {
+import java.util.UUID;
 
-    ConfigTable findByProjectNameAndName(String project, String table);
+@Repository
+public interface ConfigTableRepository extends JpaRepository<ConfigTable, UUID> {
 }
