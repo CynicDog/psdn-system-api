@@ -16,7 +16,10 @@ public class ConfigRule {
 
     @Id @UuidGenerator
     @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
-    private UUID uuid;
+    private UUID id;
+
+    @Column(name = "PSEUDO_RULE_ID", nullable = false)
+    private UUID ruleId;
 
     @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
     private UUID configTableId;
@@ -27,18 +30,29 @@ public class ConfigRule {
     @Column(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
     private UUID configTableColumnId;
 
-    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false)
+    @Column(name = "RULE_ATTRIBUTE_NAME")
     private String attributeName;
 
-    @Column(name = "RULE_KOREAN_NAME", nullable = false)
+    @Column(name = "RULE_KOREAN_NAME")
     private String nameKorean;
 
-    @Column(name = "RULE_ENGLISH_NAME", nullable = false)
+    @Column(name = "RULE_ENGLISH_NAME")
     private String nameEnglish;
 
     @Column(name = "EXPLANATION")
     private String explanation;
 
-    @Column(name = "RULE_SEQUENCE", nullable = false)
+    @Column(name = "RULE_SEQUENCE")
     private Integer sequence;
+
+    public ConfigRule() {
+    }
+
+    public ConfigRule(UUID configTableId, Integer configTableIteration, UUID configTableColumnId, Integer sequence, UUID ruleId) {
+        this.configTableId = configTableId;
+        this.configTableIteration = configTableIteration;
+        this.configTableColumnId = configTableColumnId;
+        this.sequence = sequence;
+        this.ruleId = ruleId;
+    }
 }

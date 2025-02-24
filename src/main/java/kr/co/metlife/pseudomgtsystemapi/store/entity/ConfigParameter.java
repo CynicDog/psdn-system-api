@@ -18,7 +18,10 @@ public class ConfigParameter {
     @Id
     @UuidGenerator
     @Column(name = "PSEUDO_CONFIG_PARAMETER_ID", nullable = false)
-    private UUID uuid;
+    private UUID id;
+
+    @Column(name = "PSEUDO_PARAMETER_ID", nullable = false)
+    private UUID parameterId;
 
     @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
     private UUID configTableId;
@@ -32,19 +35,31 @@ public class ConfigParameter {
     @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
     private UUID configRuleId;
 
-    @Column(name = "CONFIG_PARAMETER_ATTRIBUTE_NAME", nullable = false)
+    @Column(name = "CONFIG_PARAMETER_ATTRIBUTE_NAME")
     private String attributeName;
 
-    @Column(name = "CONFIG_PARAMETER_KOREAN_NAME", nullable = false)
+    @Column(name = "CONFIG_PARAMETER_KOREAN_NAME")
     private String nameKorean;
 
-    @Column(name = "CONFIG_PARAMETER_ENGLISH_NAME", nullable = false)
+    @Column(name = "CONFIG_PARAMETER_ENGLISH_NAME")
     private String nameEnglish;
 
-    @Column(name = "CONFIG_PARAMETER_TYPE", nullable = false)
+    @Column(name = "CONFIG_PARAMETER_TYPE")
     private String type;
 
-    @Column(name = "CONFIG_PARAMETER_VALUE", nullable = true)
+    @Column(name = "CONFIG_PARAMETER_VALUE")
     @Convert(converter = ParameterValueConverter.class)
     private Object value;
+
+    public ConfigParameter() {
+    }
+
+    public ConfigParameter(UUID configTableId, Integer configTableIteration, UUID configTableColumnId, UUID configRuleId, Object value, UUID parameterId) {
+        this.configTableId = configTableId;
+        this.configTableIteration = configTableIteration;
+        this.configTableColumnId = configTableColumnId;
+        this.configRuleId = configRuleId;
+        this.value = value;
+        this.parameterId = parameterId;
+    }
 }

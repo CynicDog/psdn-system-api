@@ -16,18 +16,18 @@ public class TableColumn {
 
     @Id @UuidGenerator
     @Column(name = "PSEUDO_TABLE_COLUMN_ID", nullable = false)
-    private UUID uuid;
+    private UUID id;
 
     @Column(name = "PSEUDO_TABLE_ID", nullable = false)
     private UUID tableId;
 
-    @Column(name = "COLUMN_NAME", nullable = false)
+    @Column(name = "COLUMN_NAME")
     private String name;
 
-    @Column(name = "COLUMN_LOGICAL_NAME", nullable = false)
+    @Column(name = "COLUMN_LOGICAL_NAME")
     private String logicalName;
 
-    @Column(name = "COLUMN_DATA_TYPE", nullable = false)
+    @Column(name = "COLUMN_DATA_TYPE")
     private String dataType;
 
     @Column(name = "COLUMN_DOMAIN")
@@ -41,4 +41,14 @@ public class TableColumn {
 
     @Column(name = "USE_CODE_GROUP_ID")
     private String useCodeGroupId;
+
+    public TableColumn() {
+    }
+
+    public TableColumn(UUID tableId, String name, String logicalName, String dataType) {
+        this.tableId = tableId;
+        this.name = name;
+        this.logicalName = logicalName;
+        this.dataType = dataType;
+    }
 }
