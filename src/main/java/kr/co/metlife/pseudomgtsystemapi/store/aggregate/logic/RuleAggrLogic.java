@@ -19,6 +19,6 @@ public class RuleAggrLogic implements RuleAggrService {
     @Override
     public List<Rule> retrieve()
     {
-        return  repository.findAll(Sort.by(Sort.Direction.ASC, "sequece"));
+        return  repository.findAll(Sort.by(Sort.Direction.ASC, "sequence"));
     }
 }
