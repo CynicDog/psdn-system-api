@@ -39,13 +39,50 @@ public class Project {
     @Column(name = "PROJECT_EXPLANATION")
     private String explanation;
 
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
+
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "CREATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "CREATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime createTimestamp;
+
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "APPROVE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime approveTimestamp;
+
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "START_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime startTimestamp;
+
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "FINISH_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime finishTimestamp;
+
+    @Column(name = "UPDATE_USER_ID", nullable = true, length = 120)
+    private String updateUserId;
 
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public Project(String userId, String name, Integer sequence, String status, String explanation, String inputUserId, LocalDateTime approveTimestamp, LocalDateTime startTimestamp, LocalDateTime finishTimestamp) {
+        this.userId = userId;
+        this.name = name;
+        this.sequence = sequence;
+        this.status = status;
+        this.explanation = explanation;
+        this.inputUserId = inputUserId;
+        this.approveTimestamp = approveTimestamp;
+        this.startTimestamp = startTimestamp;
+        this.finishTimestamp = finishTimestamp;
+    }
+
+    public static enum Status {
+        WRITING,
+        PENDING,
+        APPROVED,
+        FINISHED,
+    }
 }

@@ -3,9 +3,7 @@ package kr.co.metlife.pseudomgtsystemapi.store.entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,7 +13,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @jakarta.persistence.Table(name = "PSEUDO_TABLE")
 public class Table {
 
@@ -36,14 +35,20 @@ public class Table {
 
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "INPUT_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    @Column(name = "UPDATE_USER_ID", nullable = true, length = 120)
     private String updateUserId;
 
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public Table(String name, String logicalName, String inputUserId) {
+        this.name = name;
+        this.logicalName = logicalName;
+        this.inputUserId = inputUserId;
+    }
 }

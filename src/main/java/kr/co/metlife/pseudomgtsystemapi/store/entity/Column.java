@@ -54,14 +54,22 @@ public class Column {
 
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @jakarta.persistence.Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @jakarta.persistence.Column(name = "INPUT_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @jakarta.persistence.Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    @jakarta.persistence.Column(name = "UPDATE_USER_ID", nullable = true, length = 120)
     private String updateUserId;
 
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @jakarta.persistence.Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @jakarta.persistence.Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public Column(String tableId, String name, String logicalName, String dataType, String inputUserId) {
+        this.tableId = tableId;
+        this.name = name;
+        this.logicalName = logicalName;
+        this.dataType = dataType;
+        this.inputUserId = inputUserId;
+    }
 }

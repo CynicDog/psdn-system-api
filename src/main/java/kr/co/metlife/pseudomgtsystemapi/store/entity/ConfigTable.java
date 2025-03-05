@@ -32,14 +32,17 @@ public class ConfigTable {
     @Column(name = "PSEUDO_TABLE_ID", nullable = false, length = 32)
     private String tableId;
 
-    @Column(name = "ITERATION", nullable = false)
-    private Integer iteration;
-
     @Column(name = "TABLE_NAME", nullable = false, length = 200)
     private String name;
 
     @Column(name = "TABLE_LOGICAL_NAME", length = 400)
     private String logicalName;
+
+    @Column(name = "TABLE_EXPLANATION")
+    private String explanation;
+
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
 
     @Column(name = "TABLE_SEQUENCE")
     private Integer sequence;
@@ -49,14 +52,25 @@ public class ConfigTable {
 
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "INPUT_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    @Column(name = "UPDATE_USER_ID", nullable = true, length = 120)
     private String updateUserId;
 
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public ConfigTable(String projectId, String tableId, String name, String logicalName, String explanation, Integer iteration, Integer sequence, String inputUserId) {
+        this.projectId = projectId;
+        this.tableId = tableId;
+        this.name = name;
+        this.logicalName = logicalName;
+        this.explanation = explanation;
+        this.iteration = iteration;
+        this.sequence = sequence;
+        this.inputUserId = inputUserId;
+    }
 }

@@ -2,6 +2,7 @@ package kr.co.metlife.pseudomgtsystemapi.controller;
 
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.ParameterFeatureLogic;
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.RuleFeatureLogic;
+import kr.co.metlife.pseudomgtsystemapi.store.entity.Parameter;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Rule;
 import kr.co.metlife.pseudomgtsystemapi.store.repository.RuleRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class MetaController {
      * @example http :8999/v1/tenants/KOREA/KUDP/channel/meta/parameters
      */
     @GetMapping("/parameters")
-    ResponseEntity<List<Rule>> getParameters() {
-        return ResponseEntity.ok(ruleFeatureLogic.getRules());
+    ResponseEntity<List<Parameter>> getParameters() {
+        return ResponseEntity.ok(parameterFeatureLogic.getParameters());
     }
 }

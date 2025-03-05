@@ -51,14 +51,24 @@ public class Parameter {
 
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "INPUT_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    @Column(name = "UPDATE_USER_ID", nullable = true, length = 120)
     private String updateUserId;
 
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public Parameter(String attributeName, String nameKorean, String nameEnglish, String type, Object defaultValue, String explanation, String inputUserId) {
+        this.attributeName = attributeName;
+        this.nameKorean = nameKorean;
+        this.nameEnglish = nameEnglish;
+        this.type = type;
+        this.defaultValue = defaultValue;
+        this.explanation = explanation;
+        this.inputUserId = inputUserId;
+    }
 }
