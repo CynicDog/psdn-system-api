@@ -5,5 +5,5 @@ import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
 import java.util.List;
 
 public interface ProjectFeatureService {
-    List<Project> retrieveProjectsByUsername(String username);
+    List<Project> getProjectsByUsername(String username);
 }

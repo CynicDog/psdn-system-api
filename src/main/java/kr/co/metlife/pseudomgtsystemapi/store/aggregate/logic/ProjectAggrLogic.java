@@ -1,21 +1,21 @@
-package kr.co.metlife.pseudomgtsystemapi.store.aggregate.logic;
-
-import kr.co.metlife.pseudomgtsystemapi.store.aggregate.ProjectAggrService;
-import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
-import kr.co.metlife.pseudomgtsystemapi.store.repository.ProjectRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
-
-@Service
-@RequiredArgsConstructor
-public class ProjectAggrLogic implements ProjectAggrService {
-
-    private final ProjectRepository repository;
-
-
+//package kr.co.metlife.pseudomgtsystemapi.store.aggregate.logic;
+//
+//import kr.co.metlife.pseudomgtsystemapi.store.aggregate.ProjectAggrService;
+//import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
+//import kr.co.metlife.pseudomgtsystemapi.store.repository.ProjectRepository;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.List;
+//import java.util.UUID;
+//
+//@Service
+//@RequiredArgsConstructor
+//public class ProjectAggrLogic implements ProjectAggrService {
+//
+//    private final ProjectRepository repository;
+//
+//
 //    @Override
 //    public List<Project> retrieve(String userId)
 //    {
@@ -44,4 +44,4 @@ public class ProjectAggrLogic implements ProjectAggrService {
 //
 //        return repository.save(project);
 //    }
-}
+//}

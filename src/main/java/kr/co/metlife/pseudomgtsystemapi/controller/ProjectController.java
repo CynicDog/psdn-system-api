@@ -1,11 +1,8 @@
 package kr.co.metlife.pseudomgtsystemapi.controller;
 
-import kr.co.metlife.pseudomgtsystemapi.feature.ProjectFeatureService;
-import kr.co.metlife.pseudomgtsystemapi.store.entity.Parameter;
+import kr.co.metlife.pseudomgtsystemapi.dto.ProjectDTO;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONObject;
 import kr.co.metlife.pseudomgtsystemapi.flow.ProjectFlowService;
-import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectFeatureService projectFeatureService;
+    private final ProjectFlowService projectFlowService;
 
     /**
-     * @description 가명화 규칙 파라미터를 조회합니다.
+     * @description 사용자의 프로젝트를 조회합니다.
      * @example http :8999/v1/tenants/KOREA/KUDP/system/project/users/JohnDoe
      */
     @GetMapping("/users/{username}")
-    ResponseEntity<List<Project>> getProjectsByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(projectFeatureService.retrieveProjectsByUsername(username));
+    ResponseEntity<List<ProjectDTO>> getProjectsByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(projectFlowService.getProjectsByUsername(username));
     }
 }
