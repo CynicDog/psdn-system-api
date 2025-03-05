@@ -1,5 +1,7 @@
 package kr.co.metlife.pseudomgtsystemapi.controller;
 
+import kr.co.metlife.pseudomgtsystemapi.feature.ParameterFeatureService;
+import kr.co.metlife.pseudomgtsystemapi.feature.RuleFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.ParameterFeatureLogic;
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.RuleFeatureLogic;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Parameter;
@@ -18,8 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MetaController {
 
-    private final RuleFeatureLogic ruleFeatureLogic;
-    private final ParameterFeatureLogic parameterFeatureLogic;
+    private final RuleFeatureService ruleFeatureService;
+    private final ParameterFeatureService parameterFeatureService;
 
     /**
      * @description 가명화 규칙을 조회합니다.
@@ -27,15 +29,15 @@ public class MetaController {
      */
     @GetMapping("/rules")
     ResponseEntity<List<Rule>> getRules() {
-        return ResponseEntity.ok(ruleFeatureLogic.getRules());
+        return ResponseEntity.ok(ruleFeatureService.getRules());
     }
 
     /**
      * @description 가명화 규칙 파라미터를 조회합니다.
-     * @example http :8999/v1/tenants/KOREA/KUDP/channel/meta/parameters
+     * @example http :8999/v1/tenants/KOREA/KUDP/system/meta/parameters
      */
     @GetMapping("/parameters")
     ResponseEntity<List<Parameter>> getParameters() {
-        return ResponseEntity.ok(parameterFeatureLogic.getParameters());
+        return ResponseEntity.ok(parameterFeatureService.getParameters());
     }
 }

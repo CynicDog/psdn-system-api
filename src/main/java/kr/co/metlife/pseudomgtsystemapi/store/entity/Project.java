@@ -24,8 +24,11 @@ public class Project {
     @Column(name = "PSEUDO_PROJECT_ID", nullable = false, length = 32)
     private String id;
 
-    @Column(name = "OWNER_ID", nullable = false, length = 120)
-    private String userId;
+//    @Column(name = "OWNER_ID", nullable = false, length = 120)
+//    private String userId;
+
+    @Column(name = "USERNAME", nullable = false, length = 120)
+    private String username;
 
     @Column(name = "PROJECT_NAME", nullable = false)
     private String name;
@@ -67,8 +70,8 @@ public class Project {
     @Column(name = "UPDATE_TIMESTAMP", nullable = true, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
 
-    public Project(String userId, String name, Integer sequence, String status, String explanation, String inputUserId, LocalDateTime approveTimestamp, LocalDateTime startTimestamp, LocalDateTime finishTimestamp) {
-        this.userId = userId;
+    public Project(String username, String name, Integer sequence, String status, String explanation, String inputUserId, LocalDateTime approveTimestamp, LocalDateTime startTimestamp, LocalDateTime finishTimestamp) {
+        this.username = username;
         this.name = name;
         this.sequence = sequence;
         this.status = status;

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ProjectFlowService {
-    List<Project> retrieveProjectListByUserId(String userId);
+//    List<Project> retrieveProjectListByUserId(String userId);
 }

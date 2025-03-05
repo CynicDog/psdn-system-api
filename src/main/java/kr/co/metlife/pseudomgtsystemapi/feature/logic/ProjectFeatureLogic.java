@@ -3,21 +3,21 @@ package kr.co.metlife.pseudomgtsystemapi.feature.logic;
 import kr.co.metlife.pseudomgtsystemapi.feature.ProjectFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.store.aggregate.ProjectAggrService;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
+import kr.co.metlife.pseudomgtsystemapi.store.repository.ProjectRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class ProjectFeatureLogic implements ProjectFeatureService {
-    private final ProjectAggrService service;
 
-    public ProjectFeatureLogic(ProjectAggrService service) {
-        this.service = service;
-    }
+    private final ProjectRepository projectRepository;
 
-    public List<Project> retrieveProjectListByUserId(String userId)
-    {
-        return service.retrieve(userId);
+    @Override
+    public List<Project> retrieveProjectsByUsername(String username) {
+        return projectRepository.findAllByUsername(username);
     }
 }

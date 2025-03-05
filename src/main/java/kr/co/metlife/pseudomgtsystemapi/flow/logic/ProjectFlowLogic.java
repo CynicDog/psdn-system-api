@@ -15,8 +15,8 @@ public class ProjectFlowLogic implements ProjectFlowService {
         this.service = service;
     }
 
-    public List<Project> retrieveProjectListByUserId(String userId)
-    {
-        return  service.retrieveProjectListByUserId(userId);
-    }
+//    public List<Project> retrieveProjectListByUserId(String userId)
+//    {
+//        return  service.retrieveProjectsByUserId(userId);
+//    }
 }

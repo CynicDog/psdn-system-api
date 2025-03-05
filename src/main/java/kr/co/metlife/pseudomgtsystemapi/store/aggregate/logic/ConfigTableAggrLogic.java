@@ -4,18 +4,18 @@ import kr.co.metlife.pseudomgtsystemapi.dto.ConfigTableDTO;
 import kr.co.metlife.pseudomgtsystemapi.store.aggregate.ConfigTableAggrService;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.ConfigTable;
 import kr.co.metlife.pseudomgtsystemapi.store.repository.ConfigTableRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ConfigTableAggrLogic implements ConfigTableAggrService {
+
     private final ConfigTableRepository repository;
 
-    public ConfigTableAggrLogic(ConfigTableRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<ConfigTable> retrieve(String projectId)
