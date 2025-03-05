@@ -4,8 +4,9 @@ import kr.co.metlife.pseudomgtsystemapi.store.entity.Table;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TableRepository extends JpaRepository<Table, Long> {
+import java.util.UUID;
 
+@Repository
+public interface TableRepository extends JpaRepository<Table, UUID> {
     Table findByName(String name);
 }

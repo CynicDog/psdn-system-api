@@ -1,76 +1,62 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
-@jakarta.persistence.Table(name = "PSEUDO_CONFIG_TABLE")
+@NoArgsConstructor
+@Table(name = "PSEUDO_CONFIG_TABLE")
 public class ConfigTable {
 
-    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
-    private String uuid;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false, length = 32)
+    private String id;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CONFIG_TABLE_ID")
-    private Long id;
+    @Column(name = "PSEUDO_PROJECT_ID", nullable = false, length = 32)
+    private String projectId;
 
-    @Column(name = "CONFIG_TABLE_NAME", nullable = false)
+    @Column(name = "PSEUDO_TABLE_ID", nullable = false, length = 32)
+    private String tableId;
+
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
+
+    @Column(name = "TABLE_NAME", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "CONFIG_TABLE_LOGICAL_NAME", nullable = false)
+    @Column(name = "TABLE_LOGICAL_NAME", length = 400)
     private String logicalName;
 
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
+    @Column(name = "TABLE_SEQUENCE")
+    private Integer sequence;
 
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
+
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
 
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    @OneToMany(mappedBy = "configTable", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<ConfigTableColumn> configColumns = new ArrayList<>();
-
-    @ManyToOne @JsonIgnore
-    @JoinColumn(name = "PSEUDO_PROJECT_ID", nullable = false)
-    private Project project;
-
-    public ConfigTable() {
-    }
-
-    public ConfigTable(String name, String logicalName) {
-        setUuid(UUID.randomUUID().toString());
-        this.name = name;
-        this.logicalName = logicalName;
-    }
-
-    public void addColumn(ConfigTableColumn column) {
-        if (this.configColumns == null) {
-            this.configColumns = new ArrayList<>();
-        }
-        this.configColumns.add(column);
-    }
-
-    public void addColumns(List<ConfigTableColumn> columns) {
-        if (this.configColumns == null) {
-            this.configColumns = new ArrayList<>();
-        }
-        columns.forEach(this::addColumn);
-    }
 }

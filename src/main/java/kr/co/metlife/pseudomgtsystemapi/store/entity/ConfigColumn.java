@@ -17,29 +17,44 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PSEUDO_RULE")
-public class Rule {
+@Table(name = "PSEUDO_CONFIG_COLUMN")
+public class ConfigColumn {
 
     @Id
     @GeneratedValue(generator = "custom-uuid")
     @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
-    @Column(name = "PSEUDO_RULE_ID", nullable = false, length = 32)
+    @Column(name = "PSEUDO_CONFIG_COLUMN_ID", nullable = false, length = 32)
     private String id;
 
-    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false, length = 50)
-    private String attributeName;
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false, length = 32)
+    private String configTableId;
 
-    @Column(name = "RULE_KOREAN_NAME", nullable = false, length = 50)
-    private String nameKorean;
+    @Column(name = "PSEUDO_COLUMN_ID", nullable = false, length = 32)
+    private String columnId;
 
-    @Column(name = "RULE_ENGLISH_NAME", nullable = false, length = 50)
-    private String nameEnglish;
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
 
-    @Column(name = "SEQUENCE")
-    private Integer sequence;
+    @Column(name = "COLUMN_NAME", length = 200)
+    private String name;
 
-    @Column(name = "RULE_EXPLANATION")
-    private String explanation;
+    @Column(name = "COLUMN_LOGICAL_NAME", nullable = false, length = 400)
+    private String logicalName;
+
+    @Column(name = "COLUMN_DATA_TYPE", length = 20)
+    private String dataType;
+
+    @Column(name = "COLUMN_DOMAIN", length = 200)
+    private String domain;
+
+    @Column(name = "COLUMN_ENCODE_TYPE", length = 200)
+    private String encodeType;
+
+    @Column(name = "COLUMN_ENCODE_GRADE")
+    private Integer encodeGrade;
+
+    @Column(name = "USE_CODE_GROUP_ID", length = 20)
+    private String useCodeGroupId;
 
     @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
     private String inputUserId;

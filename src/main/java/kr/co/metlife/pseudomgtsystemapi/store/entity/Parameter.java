@@ -1,69 +1,64 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import kr.co.metlife.pseudomgtsystemapi.store.util.ParameterValueConverter;
-import lombok.Getter;
-import lombok.Setter;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
-@Getter @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
-@jakarta.persistence.Table(name = "PSEUDO_PARAMETER")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "PSEUDO_PARAMETER")
 public class Parameter {
 
-    @Column(name = "PSEUDO_PARAMETER_ID", nullable = false)
-    private String uuid;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_PARAMETER_ID", nullable = false, length = 32)
+    private String id;
 
-    @Column(name = "PARAMETER_ID")
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "PARAMETER_ATTRIBUTE_NAME", nullable = false)
+    @Column(name = "PARAMETER_ATTRIBUTE_NAME", nullable = false, length = 50)
     private String attributeName;
 
-    @Column(name = "PARAMETER_KOREAN_NAME", nullable = false)
+    @Column(name = "PARAMETER_KOREAN_NAME", nullable = false, length = 50)
     private String nameKorean;
 
-    @Column(name = "PARAMETER_ENGLISH_NAME", nullable = false)
+    @Column(name = "PARAMETER_ENGLISH_NAME", nullable = false, length = 32)
     private String nameEnglish;
 
-    @Column(name = "PARAMETER_TYPE", nullable = false)
+    @Column(name = "PARAMETER_TYPE", length = 20)
     private String type;
 
     @Convert(converter = ParameterValueConverter.class)
-    @Column(name = "PARAMETER_VALUE", nullable = false)
-    private Object value;
+    @Column(name = "PARAMETER_DEFAULT_VALUE")
+    private Object defaultValue;
 
-    @Column(name = "EXPLANATION")
+    @Column(name = "PARAMETER_EXPLANATION")
     private String explanation;
 
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
 
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
 
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public Parameter() {
-    }
-
-    public Parameter(String attributeName, String nameKorean, String nameEnglish, String type, Object value, String explanation) {
-        setUuid(UUID.randomUUID().toString());
-        this.attributeName = attributeName;
-        this.nameKorean = nameKorean;
-        this.nameEnglish = nameEnglish;
-        this.type = type;
-        this.value = value;
-        this.explanation = explanation;
-    }
 }

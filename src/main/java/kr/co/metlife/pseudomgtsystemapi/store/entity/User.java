@@ -2,36 +2,28 @@ package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
+@Builder
 @Table(name = "PSEUDO_USER")
 public class User {
 
-    @Column(name = "PSEUDO_USER_ID", nullable = false)
-    private String uuid;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_USER_ID", nullable = false, length = 32)
+    private String id;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
-    private Long id;
+    @Column(name = "USER_ID", nullable = false, length = 120)
+    private String userId;
 
-    @Column(name = "PSEUDO_USERNAME", unique = true, nullable = false)
+    @Column(name = "USERNAME", nullable = false)
     private String username;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Project> projects = new HashSet<>();
-
-    public User() {
-    }
-
-    public User(String username) {
-        setUuid(UUID.randomUUID().toString());
-        this.username = username;
-    }
 }

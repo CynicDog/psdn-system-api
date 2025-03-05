@@ -1,80 +1,71 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Column;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "PSEUDO_CONFIG_RULE")
 public class ConfigRule {
 
-    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
-    private String uuid;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false, length = 32)
+    private String id;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CONFIG_RULE_ID")
-    private Long id;
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false, length = 32)
+    private String configTableId;
 
-    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false)
+    @Column(name = "PSEUDO_CONFIG_COLUMN_ID", nullable = false, length = 32)
+    private String configColumnId;
+
+    @Column(name = "PSEUDO_RULE_ID", nullable = false, length = 32)
+    private String ruleId;
+
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
+
+    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false, length = 50)
     private String attributeName;
 
-    @Column(name = "RULE_KOREAN_NAME", nullable = false)
+    @Column(name = "RULE_KOREAN_NAME", nullable = false, length = 50)
     private String nameKorean;
 
-    @Column(name = "RULE_ENGLISH_NAME", nullable = false)
+    @Column(name = "RULE_ENGLISH_NAME", nullable = false, length = 50)
     private String nameEnglish;
 
-    @Column(name = "EXPLANATION")
+    @Column(name = "RULE_EXPLANATION")
     private String explanation;
 
-    @Column(name = "RULE_SEQUENCE", nullable = false)
+    @Column(name = "RULE_SEQUENCE")
     private Integer sequence;
 
-    @Column(name = "INPUT_USER_CODE")
-    private String inputUserCode;
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
 
-//    @CreationTimestamp
-    @Column(name = "INPUT_TIMESTAMP")
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_CODE")
-    private String updateUserCode;
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
 
-//    @UpdateTimestamp
-    @Column(name = "UPDATE_TIMESTAMP")
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    @ManyToOne @JsonIgnore
-    @JoinColumn(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
-    private ConfigTableColumn configTableColumn;
-
-    @OneToMany(mappedBy = "configRule", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<ConfigParameter> configParameters = new HashSet<>();
-
-    public ConfigRule() {
-    }
-
-    public ConfigRule(Rule rule, Integer sequence, List<ConfigParameter> parameters) {
-        setUuid(UUID.randomUUID().toString());
-        this.attributeName = rule.getAttributeName();
-        this.nameKorean = rule.getNameKorean();
-        this.nameEnglish = rule.getNameEnglish();
-        this.explanation = rule.getExplanation();
-        this.sequence = sequence;
-
-        parameters.forEach(parameter -> {
-            parameter.setConfigRule(this);
-            this.configParameters.add(parameter);
-        });
-    }
 }

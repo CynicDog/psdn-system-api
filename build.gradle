@@ -5,10 +5,8 @@ plugins {
 }
 ext {
     lombokVersion = "1.18.22"
-    springCloudVersion = "2022.0.3"
-    springBootVersion = '3.0.0'
+    springBootVersion = '3.3.0'
 }
-
 
 group = 'kr.co.metlife'
 version = '0.0.1-SNAPSHOT'
@@ -18,11 +16,16 @@ java {
     targetCompatibility = "17"
 }
 
+bootRun {
+//    args = ["--spring.profiles.active=local"]
+}
+
+// Metlife Artifactory 경로 추가
 repositories {
     mavenCentral()
 
 //    maven {
-//        url "https://artifactory.metlife.co.kr/artifactory/maven-repo-global"
+//        url "https://artifactory.metlife.co.kr/artifactory/global-MavenCentral-remote"
 //    }
 //    maven {
 //        url "https://artifactory.metlife.co.kr/artifactory/libs-release"
@@ -30,16 +33,13 @@ repositories {
 //    maven {
 //        url "https://artifactory.metlife.co.kr/artifactory/libs-snapshot"
 //    }
-//    maven {
-//        url "https://artifactory.metlife.co.kr/artifactory/jcenter"
-//    }
 }
 
 dependencies {
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '12.8.1.jre11'
+    implementation 'org.json:json:20190722'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -49,9 +49,9 @@ dependencies {
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
-    }
+//dependencyManagement    imports {
+//        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+//    }
 }
 
 tasks.named('test') {
