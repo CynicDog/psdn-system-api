@@ -1,33 +1,49 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @jakarta.persistence.Table(name = "PSEUDO_TABLE")
 public class Table {
 
-    @Id @UuidGenerator
-    @Column(name = "PSEUDO_TABLE_ID", nullable = false)
-    private UUID id;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_TABLE_ID", nullable = false, length = 32)
+    private String id;
 
-    @Column(name = "TABLE_NAME")
+    @Column(name = "TABLE_NAME", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "TABLE_LOGICAL_NAME")
+    @Column(name = "TABLE_LOGICAL_NAME", length = 400)
     private String logicalName;
 
-    public Table() {
-    }
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
 
-    public Table(String name, String logicalName) {
-        this.name = name;
-        this.logicalName = logicalName;
-    }
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime inputTimestamp;
+
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
+
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime updateTimestamp;
 }

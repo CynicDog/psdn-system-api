@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface TableRepository extends JpaRepository<Table, UUID> {
+    Table findByName(String name);
 }

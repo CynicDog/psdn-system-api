@@ -2,64 +2,78 @@ package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import kr.co.metlife.pseudomgtsystemapi.store.util.ParameterValueConverter;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "PSEUDO_CONFIG_PARAMETER")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "`PSEUDO_CONFIG_PARAMETER`")
 public class ConfigParameter {
 
     @Id
-    @UuidGenerator
-    @Column(name = "PSEUDO_CONFIG_PARAMETER_ID", nullable = false)
-    private UUID id;
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_CONFIG_PARAMETER_ID", nullable = false, length = 32)
+    private String id;
 
-    @Column(name = "PSEUDO_PARAMETER_ID", nullable = false)
-    private UUID parameterId;
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false, length = 32)
+    private String configTableId;
 
-    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
-    private UUID configTableId;
+    @Column(name = "PSEUDO_CONFIG_COLUMN_ID", nullable = false, length = 32)
+    private String configColumnId;
 
-    @Column(name = "CONFIG_TABLE_ITERATION")
-    private Integer configTableIteration;
+    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false, length = 32)
+    private String configRuleId;
 
-    @Column(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
-    private UUID configTableColumnId;
+    @Column(name = "PSEUDO_PARAMETER_ID", nullable = false, length = 32)
+    private String parameterId;
 
-    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
-    private UUID configRuleId;
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
 
-    @Column(name = "CONFIG_PARAMETER_ATTRIBUTE_NAME")
+    @Column(name = "PARAMETER_ATTRIBUTE_NAME", nullable = false, length = 50)
     private String attributeName;
 
-    @Column(name = "CONFIG_PARAMETER_KOREAN_NAME")
+    @Column(name = "PARAMETER_KOREAN_NAME", nullable = false, length = 50)
     private String nameKorean;
 
-    @Column(name = "CONFIG_PARAMETER_ENGLISH_NAME")
+    @Column(name = "PARAMETER_ENGLISH_NAME", nullable = false, length = 32)
     private String nameEnglish;
 
-    @Column(name = "CONFIG_PARAMETER_TYPE")
+    @Column(name = "PARAMETER_TYPE", length = 20)
     private String type;
 
-    @Column(name = "CONFIG_PARAMETER_VALUE")
     @Convert(converter = ParameterValueConverter.class)
-    private Object value;
+    @Column(name = "PARAMETER_DEFAULT_VALUE")
+    private Object defaultValue;
 
-    public ConfigParameter() {
-    }
+    @Column(name = "PARAMETER_EXPLANATION")
+    private String explanation;
 
-    public ConfigParameter(UUID configTableId, Integer configTableIteration, UUID configTableColumnId, UUID configRuleId, Object value, UUID parameterId) {
-        this.configTableId = configTableId;
-        this.configTableIteration = configTableIteration;
-        this.configTableColumnId = configTableColumnId;
-        this.configRuleId = configRuleId;
-        this.value = value;
-        this.parameterId = parameterId;
-    }
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
+
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime inputTimestamp;
+
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
+
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime updateTimestamp;
 }

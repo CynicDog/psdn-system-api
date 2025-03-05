@@ -1,10 +1,12 @@
 package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,31 +16,23 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Table(name = "COMMON_CODE_GROUP")
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "PSEUDO_RULE")
-public class Rule {
+public class CommonCodeGroup {
 
     @Id
     @GeneratedValue(generator = "custom-uuid")
     @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
-    @Column(name = "PSEUDO_RULE_ID", nullable = false, length = 32)
+    @Column(name = "COMMON_CODE_GROUP_ID", nullable = false, length = 32)
     private String id;
 
-    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false, length = 50)
-    private String attributeName;
+    @Column(name = "CODE_GROUP_ID", nullable = false, length = 20)
+    private String codeGroupId;
 
-    @Column(name = "RULE_KOREAN_NAME", nullable = false, length = 50)
-    private String nameKorean;
+    @Column(name = "CODE_GROUP_NAME", nullable = false, length = 150)
+    private String codeGroupName;
 
-    @Column(name = "RULE_ENGLISH_NAME", nullable = false, length = 50)
-    private String nameEnglish;
-
-    @Column(name = "SEQUENCE")
-    private Integer sequence;
-
-    @Column(name = "RULE_EXPLANATION")
+    @Column(name = "CODE_GROUP_EXPLANATION")
     private String explanation;
 
     @Column(name = "INPUT_USER_ID", nullable = false, length = 120)

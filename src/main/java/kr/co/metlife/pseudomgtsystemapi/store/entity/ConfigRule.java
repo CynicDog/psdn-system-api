@@ -2,57 +2,70 @@ package kr.co.metlife.pseudomgtsystemapi.store.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
+import jakarta.persistence.Column;
+import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "PSEUDO_CONFIG_RULE")
 public class ConfigRule {
 
-    @Id @UuidGenerator
-    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false)
-    private UUID id;
+    @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "kr.co.metlife.pseudomgtsystemapi.store.util.CustomUUIDGenerator")
+    @Column(name = "PSEUDO_CONFIG_RULE_ID", nullable = false, length = 32)
+    private String id;
 
-    @Column(name = "PSEUDO_RULE_ID", nullable = false)
-    private UUID ruleId;
+    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false, length = 32)
+    private String configTableId;
 
-    @Column(name = "PSEUDO_CONFIG_TABLE_ID", nullable = false)
-    private UUID configTableId;
+    @Column(name = "PSEUDO_CONFIG_COLUMN_ID", nullable = false, length = 32)
+    private String configColumnId;
 
-    @Column(name = "CONFIG_TABLE_ITERATION")
-    private Integer configTableIteration;
+    @Column(name = "PSEUDO_RULE_ID", nullable = false, length = 32)
+    private String ruleId;
 
-    @Column(name = "PSEUDO_CONFIG_TABLE_COLUMN_ID", nullable = false)
-    private UUID configTableColumnId;
+    @Column(name = "ITERATION", nullable = false)
+    private Integer iteration;
 
-    @Column(name = "RULE_ATTRIBUTE_NAME")
+    @Column(name = "RULE_ATTRIBUTE_NAME", nullable = false, length = 50)
     private String attributeName;
 
-    @Column(name = "RULE_KOREAN_NAME")
+    @Column(name = "RULE_KOREAN_NAME", nullable = false, length = 50)
     private String nameKorean;
 
-    @Column(name = "RULE_ENGLISH_NAME")
+    @Column(name = "RULE_ENGLISH_NAME", nullable = false, length = 50)
     private String nameEnglish;
 
-    @Column(name = "EXPLANATION")
+    @Column(name = "RULE_EXPLANATION")
     private String explanation;
 
     @Column(name = "RULE_SEQUENCE")
     private Integer sequence;
 
-    public ConfigRule() {
-    }
+    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
+    private String inputUserId;
 
-    public ConfigRule(UUID configTableId, Integer configTableIteration, UUID configTableColumnId, Integer sequence, UUID ruleId) {
-        this.configTableId = configTableId;
-        this.configTableIteration = configTableIteration;
-        this.configTableColumnId = configTableColumnId;
-        this.sequence = sequence;
-        this.ruleId = ruleId;
-    }
+    @CreationTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime inputTimestamp;
+
+    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
+    private String updateUserId;
+
+    @UpdateTimestamp
+    @Convert(converter= StringToLocalDateTimeConverter.class)
+    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    private LocalDateTime updateTimestamp;
 }

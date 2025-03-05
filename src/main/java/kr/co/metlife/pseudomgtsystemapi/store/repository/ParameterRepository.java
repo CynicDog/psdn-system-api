@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ParameterRepository extends JpaRepository<Parameter, UUID> {
+    Parameter findByAttributeName (String attributeName);
 }
