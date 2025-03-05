@@ -1,0 +1,33 @@
+info:
+  application:
+    version: v1
+    name: system
+  project:
+    name: KUDP
+  tenant:
+    name: KOREA
+
+server:
+  port: 8999
+  servlet:
+    context-path: "/${info.application.version}/tenants/${info.tenant.name}/${info.project.name}/${info.application.name}"
+
+spring:
+  application:
+    name: system
+  # JDBC Connection Settings
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=MLPNZD;encrypt=false;
+    username: sa
+    password: SomePassword5@
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+# Hibernate Settings
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
