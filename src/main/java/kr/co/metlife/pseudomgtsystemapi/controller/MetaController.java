@@ -2,15 +2,8 @@ package kr.co.metlife.pseudomgtsystemapi.controller;
 
 import kr.co.metlife.pseudomgtsystemapi.dto.ParameterDTO;
 import kr.co.metlife.pseudomgtsystemapi.dto.RuleDTO;
-import kr.co.metlife.pseudomgtsystemapi.feature.ParameterFeatureService;
-import kr.co.metlife.pseudomgtsystemapi.feature.RuleFeatureService;
-import kr.co.metlife.pseudomgtsystemapi.feature.logic.ParameterFeatureLogic;
-import kr.co.metlife.pseudomgtsystemapi.feature.logic.RuleFeatureLogic;
 import kr.co.metlife.pseudomgtsystemapi.flow.ParameterFlowService;
 import kr.co.metlife.pseudomgtsystemapi.flow.RuleFlowService;
-import kr.co.metlife.pseudomgtsystemapi.store.entity.Parameter;
-import kr.co.metlife.pseudomgtsystemapi.store.entity.Rule;
-import kr.co.metlife.pseudomgtsystemapi.store.repository.RuleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
