@@ -1,9 +1,13 @@
 package kr.co.metlife.pseudomgtsystemapi.controller;
 
+import kr.co.metlife.pseudomgtsystemapi.dto.ParameterDTO;
+import kr.co.metlife.pseudomgtsystemapi.dto.RuleDTO;
 import kr.co.metlife.pseudomgtsystemapi.feature.ParameterFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.feature.RuleFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.ParameterFeatureLogic;
 import kr.co.metlife.pseudomgtsystemapi.feature.logic.RuleFeatureLogic;
+import kr.co.metlife.pseudomgtsystemapi.flow.ParameterFlowService;
+import kr.co.metlife.pseudomgtsystemapi.flow.RuleFlowService;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Parameter;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Rule;
 import kr.co.metlife.pseudomgtsystemapi.store.repository.RuleRepository;
@@ -20,16 +24,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MetaController {
 
-    private final RuleFeatureService ruleFeatureService;
-    private final ParameterFeatureService parameterFeatureService;
+    private final RuleFlowService ruleFlowService;
+    private final ParameterFlowService parameterFlowService;
 
     /**
      * @description 가명화 규칙을 조회합니다.
      * @example http :8999/v1/tenants/KOREA/KUDP/system/meta/rules
      */
     @GetMapping("/rules")
-    ResponseEntity<List<Rule>> getRules() {
-        return ResponseEntity.ok(ruleFeatureService.getRules());
+    ResponseEntity<List<RuleDTO>> getRules() {
+        return ResponseEntity.ok(ruleFlowService.getRules());
     }
 
     /**
@@ -37,7 +41,7 @@ public class MetaController {
      * @example http :8999/v1/tenants/KOREA/KUDP/system/meta/parameters
      */
     @GetMapping("/parameters")
-    ResponseEntity<List<Parameter>> getParameters() {
-        return ResponseEntity.ok(parameterFeatureService.getParameters());
+    ResponseEntity<List<ParameterDTO>> getParameters() {
+        return ResponseEntity.ok(parameterFlowService.getParameters());
     }
 }
