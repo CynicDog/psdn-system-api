@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/projects")
 @RequiredArgsConstructor
 public class ProjectController {
 
@@ -17,10 +17,15 @@ public class ProjectController {
 
     /**
      * @description 사용자의 프로젝트를 조회합니다.
-     * @example http :8999/v1/tenants/KOREA/KUDP/system/project/users/JohnDoe
+     * @example http GET :8999/v1/tenants/KOREA/KUDP/system/projects?username=JohnDoe
      */
-    @GetMapping("/users/{username}")
-    ResponseEntity<List<ProjectDTO>> getProjectsByUsername(@PathVariable String username) {
+    @GetMapping
+    ResponseEntity<List<ProjectDTO>> getProjectsByUsername(@RequestParam String username) {
         return ResponseEntity.ok(projectFlowService.getProjectsByUsername(username));
+    }
+
+    @PostMapping("/save")
+    ResponseEntity<ProjectDTO> saveProject(@RequestBody ProjectDTO projectDTO) {
+        return ResponseEntity.ok(projectFlowService.saveProject(projectDTO));
     }
 }

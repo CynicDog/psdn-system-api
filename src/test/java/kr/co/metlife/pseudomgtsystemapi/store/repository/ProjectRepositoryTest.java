@@ -1,6 +1,7 @@
 package kr.co.metlife.pseudomgtsystemapi.store.repository;
 
 import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
+import kr.co.metlife.pseudomgtsystemapi.store.util.DatabaseInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,9 +23,9 @@ class ProjectRepositoryTest {
         List<Project> projectList = projectRepository.findAll();
     }
     @Test
-    void GetProjectByUserId()
+    void GetProjectByUsername()
     {
-        List<Project> projectList = projectRepository.findAllByUserId("jaeho.cha");
+        List<Project> projectList = projectRepository.findAllByUsername("jaeho.cha");
     }
 
     @Test
@@ -32,7 +33,7 @@ class ProjectRepositoryTest {
     void SetProject()
     {
         Project project = Project.builder()
-                .userId("jaeho.cha")
+                .username("jaeho.cha")
                 .name("TEST")
                 .status("WRITING")
                 .sequence(1)

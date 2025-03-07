@@ -46,30 +46,30 @@ public class DatabaseInitializer implements CommandLineRunner {
         Rule rule2 = new Rule("random_selection_replacement", "단어 사전 무작위 추출", "Random Selection Replacement", 14, "정보집합물 내 하나 또는 그 이상의 행 항목에 해당하는 특정 열 항목을 총계처리", "MLPNZD_SYS");
         ruleRepository.saveAll(List.of(rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8, rule9, rule10, rule11, rule12, rule13, rule14));
 
-        Parameter param1 = new Parameter("alternative", "검증 유형", "Alternative", "code", "two_side", "검증 유형 - 상하위(two-side), 하위(less), 상위(greater)", "MLPNZD_SYS");
-        Parameter param2 = new Parameter("binning_length", "카운트 구간 길이", "Counting Bin Size", "int", "0", "연속형 데이터에 대하여 특이치 임계치를 산정하기 위해 설정되는 카운트 구간 길이", "MLPNZD_SYS");
-        Parameter param3 = new Parameter("chaos_level", "무작위 수준", "Chaos Level ", "int", "", "잡음 추가 시 적용되는 무작위 수준", "MLPNZD_SYS");
-        Parameter param4 = new Parameter("grouping_columns", "연관 칼럼", "Grouping Column", "string", "", "그루핑 시 사용되는 연관 칼럼", "MLPNZD_SYS");
-        Parameter param5 = new Parameter("mapping_definition", "원본 값 - 대체 값 정의", "Mapping Definition", "mapping", "", "원본 데이터를 대체하는 문자", "MLPNZD_SYS");
-        Parameter param6 = new Parameter("mask_char", "마스킹 문자", "Masking Character", "string", "", "마스킹 처리에 사용될 문자", "MLPNZD_SYS");
-        Parameter param7 = new Parameter("mask_range", "마스킹 범위", "Masking Range", "range", "0", "마스킹 처리 범위", "MLPNZD_SYS");
-        Parameter param8 = new Parameter("percentile", "분위수", "Percentile", "int", "5", "규칙 적용에 사용할 분위수 예) 상하위 5% ", "MLPNZD_SYS");
-        Parameter param9 = new Parameter("re_identification_yn", "재식별화 키 여부", "Re-Identification YN", "bool", "true", "해당 칼럼의 데이터가 삭제된 후 재식별키에 사용되는지 여부", "MLPNZD_SYS");
-        Parameter param10 = new Parameter("record_deletion", "레코드 삭제 여부", "Record Deletion YN", "bool", "false", "로컬 삭제 시 레코드 삭제 여부", "MLPNZD_SYS");
-        Parameter param11 = new Parameter("replacement_statistic", "대체 통계값", "Replacement Statistic", "code", "mean", "총계 처리에 사용될 통계값 - 평균값(mean), 중앙값(median), 최빈값(mode)", "MLPNZD_SYS");
-        Parameter param12 = new Parameter("rounding_mode", "라운딩 모드", "Rounding Mode ", "code", "nearest", "라운딩 모드 - 올림(up), 내림(down), 반올림(nearest)", "MLPNZD_SYS");
-        Parameter param13 = new Parameter("rounding_position", "라운딩 자리수", "Rounding Position", "int", "", "라운딩 자리수", "MLPNZD_SYS");
-        Parameter param14 = new Parameter("rounding_size", "데이터 구간 배수", "Binning Size", "int", "3", "범위 방법에 사용될 배수", "MLPNZD_SYS");
-        Parameter param15 = new Parameter("scope_specification", "부분 삭제 범위", "Partial Suppression Range", "range", "0", "부분 삭제 범위", "MLPNZD_SYS");
-        Parameter param16 = new Parameter("selection_list", "단어 사전", "Replacement Dictionary", "list", "", "단어 사전 무작위 추출에 사용될 사전", "MLPNZD_SYS");
-        Parameter param17 = new Parameter("threshold_criterion", "임계 기준", "Threshold Criteria", "code", "count", "특이치 범주화 기법 적용 시 사용되는 임계 기준 - 비율(ratio), 건수(count)", "MLPNZD_SYS");
-        Parameter param18 = new Parameter("threshold_value", "임계 값", "Threshold Value ", "float", "1", "특이치 범주화 기법 적용 시 사용되는 임계 값 ", "MLPNZD_SYS");
+        Parameter param1 = new Parameter("alternative", "검증 유형", "Alternative", "code", "", "two_side", "검증 유형 - 상하위(two-side), 하위(less), 상위(greater)", "MLPNZD_SYS");
+        Parameter param2 = new Parameter("binning_length", "카운트 구간 길이", "Counting Bin Size", "int", "", "0", "연속형 데이터에 대하여 특이치 임계치를 산정하기 위해 설정되는 카운트 구간 길이", "MLPNZD_SYS");
+        Parameter param3 = new Parameter("chaos_level", "무작위 수준", "Chaos Level ", "int", "", "", "잡음 추가 시 적용되는 무작위 수준", "MLPNZD_SYS");
+        Parameter param4 = new Parameter("grouping_columns", "연관 칼럼", "Grouping Column", "string", "", "", "그루핑 시 사용되는 연관 칼럼", "MLPNZD_SYS");
+        Parameter param5 = new Parameter("mapping_definition", "원본 값 - 대체 값 정의", "Mapping Definition", "mapping", "", "", "원본 데이터를 대체하는 문자", "MLPNZD_SYS");
+        Parameter param6 = new Parameter("mask_char", "마스킹 문자", "Masking Character", "string", "", "", "마스킹 처리에 사용될 문자", "MLPNZD_SYS");
+        Parameter param7 = new Parameter("mask_range", "마스킹 범위", "Masking Range", "range", "", "0", "마스킹 처리 범위", "MLPNZD_SYS");
+        Parameter param8 = new Parameter("percentile", "분위수", "Percentile", "int", "", "5", "규칙 적용에 사용할 분위수 예) 상하위 5% ", "MLPNZD_SYS");
+        Parameter param9 = new Parameter("re_identification_yn", "재식별화 키 여부", "Re-Identification YN", "bool", "", "true", "해당 칼럼의 데이터가 삭제된 후 재식별키에 사용되는지 여부", "MLPNZD_SYS");
+        Parameter param10 = new Parameter("record_deletion", "레코드 삭제 여부", "Record Deletion YN", "bool", "", "false", "로컬 삭제 시 레코드 삭제 여부", "MLPNZD_SYS");
+        Parameter param11 = new Parameter("replacement_statistic", "대체 통계값", "Replacement Statistic", "code", "", "mean", "총계 처리에 사용될 통계값 - 평균값(mean), 중앙값(median), 최빈값(mode)", "MLPNZD_SYS");
+        Parameter param12 = new Parameter("rounding_mode", "라운딩 모드", "Rounding Mode ", "code", "", "nearest", "라운딩 모드 - 올림(up), 내림(down), 반올림(nearest)", "MLPNZD_SYS");
+        Parameter param13 = new Parameter("rounding_position", "라운딩 자리수", "Rounding Position", "int", "", "", "라운딩 자리수", "MLPNZD_SYS");
+        Parameter param14 = new Parameter("rounding_size", "데이터 구간 배수", "Binning Size", "int", "", "3", "범위 방법에 사용될 배수", "MLPNZD_SYS");
+        Parameter param15 = new Parameter("scope_specification", "부분 삭제 범위", "Partial Suppression Range", "range", "", "0", "부분 삭제 범위", "MLPNZD_SYS");
+        Parameter param16 = new Parameter("selection_list", "단어 사전", "Replacement Dictionary", "list", "", "", "단어 사전 무작위 추출에 사용될 사전", "MLPNZD_SYS");
+        Parameter param17 = new Parameter("threshold_criterion", "임계 기준", "Threshold Criteria", "code", "", "count", "특이치 범주화 기법 적용 시 사용되는 임계 기준 - 비율(ratio), 건수(count)", "MLPNZD_SYS");
+        Parameter param18 = new Parameter("threshold_value", "임계 값", "Threshold Value ", "float", "", "1", "특이치 범주화 기법 적용 시 사용되는 임계 값 ", "MLPNZD_SYS");
         parameterRepository.saveAll(List.of(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15, param16, param17, param18));
 
         /* Mock Table "LBF" insert */
         Table LBF = new Table("LBF", "LBF", "MLPNZD_SYS");
         tableRepository.save(LBF);
-        for (int i = 0; i < 204; i++) {
+        for (int i = 0; i < 50; i++) {
             String dataType = (i % 2 == 0) ? "NVARCHAR" : "DECIMAL";
             Column column1 = new Column(LBF.getId(), String.format("col-%s", i), String.format("col-logical-%s", i), dataType, "MLPNZD_SYS");
             columnRepository.save(column1);
@@ -78,7 +78,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         /* Mock Table "HLT" insert */
         Table HLT = new Table("HLT", "HLT", "MLPNZD_SYS");
         tableRepository.save(HLT);
-        for (int i = 0; i < 401; i++) {
+        for (int i = 0; i < 60; i++) {
             String dataType = (i % 2 == 0) ? "NVARCHAR" : "DECIMAL";
             Column column1 = new Column(HLT.getId(), String.format("col-%s", i), String.format("col-logical-%s", i), dataType, "MLPNZD_SYS");
             columnRepository.save(column1);
@@ -87,41 +87,74 @@ public class DatabaseInitializer implements CommandLineRunner {
         /* Mock Table "KBW" insert */
         Table KBW = new Table("KBW", "HLT", "MLPNZD_SYS");
         tableRepository.save(KBW);
-        for (int i = 0; i < 251; i++) {
+        for (int i = 0; i < 40; i++) {
             String dataType = (i % 2 == 0) ? "NVARCHAR" : "DECIMAL";
             Column column1 = new Column(KBW.getId(), String.format("col-%s", i), String.format("col-logical-%s", i), dataType, "MLPNZD_SYS");
             columnRepository.save(column1);
         }
 
-        Project project1 = new Project("JohnDoe", "Project - 1", 1, Project.Status.APPROVED.name(), "JohnDoe's First Project.", "MLPNZD_SYS",
-                LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
-                LocalDateTime.of(2025, Month.FEBRUARY, 1, 0, 0),
-                null
-        );
-        Project project2 = new Project("JohnDoe", "Project - 2", 2, Project.Status.PENDING.name(), "JohnDoe's Second Project.", "MLPNZD_SYS",
-                null,
-                LocalDateTime.of(2025, Month.MARCH, 1, 0, 0),
-                null
-        );
-        Project project3 = new Project("JohnDoe", "Project - 3", 3, Project.Status.FINISHED.name(), "JohnDoe's Third Project.", "MLPNZD_SYS",
-                LocalDateTime.of(2025, Month.JANUARY, 10, 0, 0),
-                LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
-                LocalDateTime.of(2025, Month.JANUARY, 31, 0, 0)
-        );
-        Project project4 = new Project("JohnDoe", "Project - 4", 4, Project.Status.WRITING.name(), "JohnDoe's Fourth Project.", "MLPNZD_SYS",
-                null,
-                null,
-                null
-        );
-        projectRepository.saveAll(List.of(project1, project2, project3, project4));
+        { /* Mock Data for `JohnDoe` */
+            Project project1 = new Project("JohnDoe", "Project - 1", 1, Project.Status.APPROVED.name(), "JohnDoe's First Project.", "MLPNZD_SYS",
+                    LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
+                    LocalDateTime.of(2025, Month.FEBRUARY, 1, 0, 0),
+                    null
+            );
+            Project project2 = new Project("JohnDoe", "Project - 2", 2, Project.Status.PENDING.name(), "JohnDoe's Second Project.", "MLPNZD_SYS",
+                    null,
+                    LocalDateTime.of(2025, Month.MARCH, 1, 0, 0),
+                    null
+            );
+            Project project3 = new Project("JohnDoe", "Project - 3", 3, Project.Status.FINISHED.name(), "JohnDoe's Third Project.", "MLPNZD_SYS",
+                    LocalDateTime.of(2025, Month.JANUARY, 10, 0, 0),
+                    LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
+                    LocalDateTime.of(2025, Month.JANUARY, 31, 0, 0)
+            );
+            Project project4 = new Project("JohnDoe", "Project - 4", 4, Project.Status.WRITING.name(), "JohnDoe's Fourth Project.", "MLPNZD_SYS",
+                    null,
+                    null,
+                    null
+            );
+            projectRepository.saveAll(List.of(project1, project2, project3, project4));
 
-        ConfigTable configTable1 = new ConfigTable(project1.getId(), LBF.getId(), "LBF", "LBF", "Use LBF table in my first project.", 0, 1, "MLPNZD_SYS");
-        ConfigTable configTable2 = new ConfigTable(project1.getId(), HLT.getId(), "HLT", "HLT", "Use HLT table in my first project.",  0, 2, "MLPNZD_SYS");
-        ConfigTable configTable3 = new ConfigTable(project1.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my first project.",  0, 3, "MLPNZD_SYS");
-        ConfigTable configTable4 = new ConfigTable(project2.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my second project.",  0, 1, "MLPNZD_SYS");
-        ConfigTable configTable5 = new ConfigTable(project2.getId(), HLT.getId(), "HLT", "HLT", "Use KBW table in my second project.",  0, 2, "MLPNZD_SYS");
-        ConfigTable configTable6 = new ConfigTable(project3.getId(), LBF.getId(), "LBF", "LBF", "Use KBW table in my third project.",  0, 1, "MLPNZD_SYS");
+            ConfigTable configTable1 = new ConfigTable(project1.getId(), LBF.getId(), "LBF", "LBF", "Use LBF table in my first project.", 0, 1, "MLPNZD_SYS");
+            ConfigTable configTable2 = new ConfigTable(project1.getId(), HLT.getId(), "HLT", "HLT", "Use HLT table in my first project.", 0, 2, "MLPNZD_SYS");
+            ConfigTable configTable3 = new ConfigTable(project1.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my first project.", 0, 3, "MLPNZD_SYS");
+            ConfigTable configTable4 = new ConfigTable(project2.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my second project.", 0, 1, "MLPNZD_SYS");
+            ConfigTable configTable5 = new ConfigTable(project2.getId(), HLT.getId(), "HLT", "HLT", "Use KBW table in my second project.", 0, 2, "MLPNZD_SYS");
+            ConfigTable configTable6 = new ConfigTable(project3.getId(), LBF.getId(), "LBF", "LBF", "Use KBW table in my third project.", 0, 1, "MLPNZD_SYS");
+            configTableRepository.saveAll(List.of(configTable1, configTable2, configTable3, configTable4, configTable5, configTable6));
+        }
 
-        configTableRepository.saveAll(List.of(configTable1, configTable2, configTable3, configTable4, configTable5, configTable6));
+        { /* Mock Data for `kyrsang0801` */
+            Project project5 = new Project("kyrsang0801", "Project - 1", 1, Project.Status.APPROVED.name(), "kyrsang0801's First Project.", "MLPNZD_SYS",
+                    LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
+                    LocalDateTime.of(2025, Month.FEBRUARY, 1, 0, 0),
+                    null
+            );
+            Project project6 = new Project("kyrsang0801", "Project - 2", 2, Project.Status.PENDING.name(), "kyrsang0801's Second Project.", "MLPNZD_SYS",
+                    null,
+                    LocalDateTime.of(2025, Month.MARCH, 1, 0, 0),
+                    null
+            );
+            Project project7 = new Project("kyrsang0801", "Project - 3", 3, Project.Status.FINISHED.name(), "kyrsang0801's Third Project.", "MLPNZD_SYS",
+                    LocalDateTime.of(2025, Month.JANUARY, 10, 0, 0),
+                    LocalDateTime.of(2025, Month.JANUARY, 20, 0, 0),
+                    LocalDateTime.of(2025, Month.JANUARY, 31, 0, 0)
+            );
+            Project project8 = new Project("kyrsang0801", "Project - 4", 4, Project.Status.WRITING.name(), "kyrsang0801's Fourth Project.", "MLPNZD_SYS",
+                    null,
+                    null,
+                    null
+            );
+            projectRepository.saveAll(List.of(project5, project6, project7, project8));
+
+            ConfigTable configTable7 = new ConfigTable(project5.getId(), LBF.getId(), "LBF", "LBF", "Use LBF table in my first project.", 0, 1, "MLPNZD_SYS");
+            ConfigTable configTable8 = new ConfigTable(project5.getId(), HLT.getId(), "HLT", "HLT", "Use HLT table in my first project.",  0, 2, "MLPNZD_SYS");
+            ConfigTable configTable9 = new ConfigTable(project5.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my first project.",  0, 3, "MLPNZD_SYS");
+            ConfigTable configTable10 = new ConfigTable(project6.getId(), KBW.getId(), "KBW", "KBW", "Use KBW table in my second project.",  0, 1, "MLPNZD_SYS");
+            ConfigTable configTable11 = new ConfigTable(project6.getId(), HLT.getId(), "HLT", "HLT", "Use KBW table in my second project.",  0, 2, "MLPNZD_SYS");
+            ConfigTable configTable12 = new ConfigTable(project7.getId(), LBF.getId(), "LBF", "LBF", "Use KBW table in my third project.",  0, 1, "MLPNZD_SYS");
+            configTableRepository.saveAll(List.of(configTable7, configTable8, configTable9, configTable10, configTable11, configTable12));
+        }
     }
 }

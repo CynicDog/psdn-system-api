@@ -18,4 +18,9 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
     public List<Project> getProjectsByUsername(String username) {
         return projectRepository.findAllByUsername(username);
     }
+
+    @Override
+    public Project saveProject(Project project) {
+        return projectRepository.save(project);
+    }
 }

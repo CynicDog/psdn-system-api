@@ -5,6 +5,7 @@ import kr.co.metlife.pseudomgtsystemapi.feature.ConfigTableFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.feature.ProjectFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.flow.ProjectFlowService;
 import kr.co.metlife.pseudomgtsystemapi.store.entity.ConfigTable;
+import kr.co.metlife.pseudomgtsystemapi.store.entity.Project;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,6 @@ public class ProjectFlowLogic implements ProjectFlowService {
         return projects.stream().map(project -> {
 
             List<ConfigTable> configTables = configTableFeatureService.getConfigTableByProjectId(project.getId());
-
             ProjectDTO projectDTO = new ProjectDTO(
                     project.getId(),
                     project.getUsername(),
@@ -42,5 +42,33 @@ public class ProjectFlowLogic implements ProjectFlowService {
 
             return projectDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProjectDTO saveProject(ProjectDTO projectDTO) {
+
+        Project project = new Project(
+                projectDTO.getUsername(),
+                projectDTO.getName(),
+                projectDTO.getSequence(),
+                projectDTO.getStatus(),
+                projectDTO.getExplanation(),
+                projectDTO.getUsername()
+        );
+        Project savedProject = projectFeatureService.saveProject(project);
+
+        return new ProjectDTO(
+                savedProject.getId(),
+                savedProject.getUsername(),
+                savedProject.getName(),
+                savedProject.getSequence(),
+                savedProject.getStatus(),
+                savedProject.getExplanation(),
+                savedProject.getCreateTimestamp(),
+                savedProject.getApproveTimestamp(),
+                savedProject.getStartTimestamp(),
+                savedProject.getFinishTimestamp(),
+                List.of()
+        );
     }
 }

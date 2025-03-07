@@ -4,20 +4,23 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
 import kr.co.metlife.pseudomgtsystemapi.store.util.StringToLocalDateTimeConverter;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * 공통 코드 그룹 Entitiy를 정의합니다.
+ */
 @Entity
 @Getter
 @Setter
 @Table(name = "COMMON_CODE_GROUP")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CommonCodeGroup {
 
     @Id
@@ -26,28 +29,56 @@ public class CommonCodeGroup {
     @Column(name = "COMMON_CODE_GROUP_ID", nullable = false, length = 32)
     private String id;
 
-    @Column(name = "CODE_GROUP_ID", nullable = false, length = 20)
+    /**
+     * 코드 그룹 ID입니다.
+     */
+    @Column(name = "CODE_GROUP_ID", nullable = false, length = 50)
     private String codeGroupId;
 
+    /**
+     * 코드 그룹명입니다.
+     */
     @Column(name = "CODE_GROUP_NAME", nullable = false, length = 150)
     private String codeGroupName;
 
+    /**
+     * 코드 그룹 설명입니다.
+     */
     @Column(name = "CODE_GROUP_EXPLANATION")
     private String explanation;
 
-    @Column(name = "INPUT_USER_ID", nullable = false, length = 120)
-    private String inputUserId;
+    /**
+     * 데이터 입력 사용자명입니다.
+     */
+    @Column(name = "INPUT_USERNAME", nullable = false, length = 120)
+    private String inputUsername;
 
+    /**
+     * 데이터 입력 일시입니다.
+     */
     @CreationTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "INPUT_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
     private LocalDateTime inputTimestamp;
 
-    @Column(name = "UPDATE_USER_ID", nullable = false, length = 120)
-    private String updateUserId;
+    /**
+     * 데이터 수정 사용자명입니다.
+     */
+    @Column(name = "UPDATE_USERNAME", length = 120)
+    private String updateUsername;
 
+    /**
+     * 데이터 수정 일시입니다.
+     */
     @UpdateTimestamp
     @Convert(converter= StringToLocalDateTimeConverter.class)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false, columnDefinition = "DATETIME2(3)")
+    @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
+
+    public CommonCodeGroup(String codeGroupId, String codeGroupName, String explanation, String inputUsername) {
+        this.codeGroupId = codeGroupId;
+        this.codeGroupName = codeGroupName;
+        this.explanation = explanation;
+        this.inputUsername = inputUsername;
+    }
 }

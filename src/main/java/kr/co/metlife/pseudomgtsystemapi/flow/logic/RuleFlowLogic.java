@@ -27,9 +27,9 @@ public class RuleFlowLogic implements RuleFlowService {
                         rule.getNameEnglish(),
                         rule.getSequence(),
                         rule.getExplanation(),
-                        rule.getInputUserId(),
+                        rule.getInputUsername(),
                         rule.getInputTimestamp(),
-                        rule.getUpdateUserId(),
+                        rule.getUpdateUsername(),
                         rule.getUpdateTimestamp()
                 ))
                 .collect(Collectors.toList());

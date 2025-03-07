@@ -21,7 +21,7 @@ spring:
     username: sa
     password: SomePassword5@
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-# Hibernate Settings
+  # Hibernate Settings
   jpa:
     hibernate:
       ddl-auto: create-drop

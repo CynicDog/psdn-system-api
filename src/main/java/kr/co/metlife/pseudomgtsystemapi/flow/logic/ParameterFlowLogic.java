@@ -28,9 +28,9 @@ public class ParameterFlowLogic implements ParameterFlowService {
                         parameter.getType(),
                         parameter.getDefaultValue(),
                         parameter.getExplanation(),
-                        parameter.getInputUserId(),
+                        parameter.getInputUsername(),
                         parameter.getInputTimestamp(),
-                        parameter.getUpdateUserId(),
+                        parameter.getUpdateUsername(),
                         parameter.getUpdateTimestamp()
                 ))
                 .collect(Collectors.toList());

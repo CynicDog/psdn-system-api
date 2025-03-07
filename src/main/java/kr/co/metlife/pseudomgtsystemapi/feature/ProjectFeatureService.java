@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ProjectFeatureService {
     List<Project> getProjectsByUsername(String username);
+    Project saveProject(Project project);
 }

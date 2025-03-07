@@ -24,12 +24,12 @@ public class ParameterDTO implements Cloneable, Serializable {
     private String type;
     private Object defaultValue;
     private String explanation;
-    private String inputUserId;
+    private String inputUsername;
     private LocalDateTime inputTimestamp;
-    private String updateUserId;
+    private String updateUsername;
     private LocalDateTime updateTimestamp;
 
-    public ParameterDTO(String id, String attributeName, String nameKorean, String nameEnglish, String type, Object defaultValue, String explanation, String inputUserId, LocalDateTime inputTimestamp, String updateUserId, LocalDateTime updateTimestamp) {
+    public ParameterDTO(String id, String attributeName, String nameKorean, String nameEnglish, String type, Object defaultValue, String explanation, String inputUsername, LocalDateTime inputTimestamp, String updateUsername, LocalDateTime updateTimestamp) {
         this.id = id;
         this.attributeName = attributeName;
         this.nameKorean = nameKorean;
@@ -37,9 +37,9 @@ public class ParameterDTO implements Cloneable, Serializable {
         this.type = type;
         this.defaultValue = defaultValue;
         this.explanation = explanation;
-        this.inputUserId = inputUserId;
+        this.inputUsername = inputUsername;
         this.inputTimestamp = inputTimestamp;
-        this.updateUserId = updateUserId;
+        this.updateUsername = updateUsername;
         this.updateTimestamp = updateTimestamp;
     }
 }

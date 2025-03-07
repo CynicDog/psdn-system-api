@@ -23,21 +23,21 @@ public class RuleDTO implements Cloneable, Serializable {
     private String nameEnglish;
     private Integer sequence;
     private String explanation;
-    private String inputUserId;
+    private String inputUsername;
     private LocalDateTime inputTimestamp;
-    private String updateUserId;
+    private String updateUsername;
     private LocalDateTime updateTimestamp;
 
-    public RuleDTO(String id, String attributeName, String nameKorean, String nameEnglish, Integer sequence, String explanation, String inputUserId, LocalDateTime inputTimestamp, String updateUserId, LocalDateTime updateTimestamp) {
+    public RuleDTO(String id, String attributeName, String nameKorean, String nameEnglish, Integer sequence, String explanation, String inputUsername, LocalDateTime inputTimestamp, String updateUsername, LocalDateTime updateTimestamp) {
         this.id = id;
         this.attributeName = attributeName;
         this.nameKorean = nameKorean;
         this.nameEnglish = nameEnglish;
         this.sequence = sequence;
         this.explanation = explanation;
-        this.inputUserId = inputUserId;
+        this.inputUsername = inputUsername;
         this.inputTimestamp = inputTimestamp;
-        this.updateUserId = updateUserId;
+        this.updateUsername = updateUsername;
         this.updateTimestamp = updateTimestamp;
     }
 }

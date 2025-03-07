@@ -22,7 +22,7 @@ public class MetaController {
 
     /**
      * @description 가명화 규칙을 조회합니다.
-     * @example http :8999/v1/tenants/KOREA/KUDP/system/meta/rules
+     * @example http GET :8999/v1/tenants/KOREA/KUDP/system/meta/rules
      */
     @GetMapping("/rules")
     ResponseEntity<List<RuleDTO>> getRules() {
@@ -31,7 +31,7 @@ public class MetaController {
 
     /**
      * @description 가명화 규칙 파라미터를 조회합니다.
-     * @example http :8999/v1/tenants/KOREA/KUDP/system/meta/parameters
+     * @example http GET :8999/v1/tenants/KOREA/KUDP/system/meta/parameters
      */
     @GetMapping("/parameters")
     ResponseEntity<List<ParameterDTO>> getParameters() {
