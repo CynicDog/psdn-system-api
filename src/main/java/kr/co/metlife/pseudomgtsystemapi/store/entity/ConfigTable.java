@@ -39,13 +39,13 @@ public class ConfigTable {
     /**
      * 테이블 메타 ID입니다.
      */
-    @Column(name = "PSEUDO_TABLE_ID", nullable = false, length = 32)
+    @Column(name = "PSEUDO_TABLE_ID", nullable = true, length = 32) // comment: 프로젝트 작성 중이나 아직 원본 테이블 지정 안했을 수 있음.
     private String tableId;
 
     /**
      * 테이블명입니다.
      */
-    @Column(name = "TABLE_NAME", nullable = false, length = 200)
+    @Column(name = "TABLE_NAME", nullable = true, length = 200) // comment: 프로젝트 작성 중이나 아직 원본 테이블 지정 안했을 수 있음.
     private String name;
 
     /**

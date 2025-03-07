@@ -18,4 +18,9 @@ public class ConfigTableFeatureLogic implements ConfigTableFeatureService {
     public List<ConfigTable> getConfigTableByProjectId(String projectId) {
         return configTableRepository.findAllByProjectId(projectId);
     }
+
+    @Override
+    public ConfigTable saveConfigTable(ConfigTable configTable) {
+        return configTableRepository.save(configTable);
+    }
 }

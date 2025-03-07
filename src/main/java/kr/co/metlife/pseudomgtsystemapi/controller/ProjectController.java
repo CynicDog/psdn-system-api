@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.controller;
 
+import kr.co.metlife.pseudomgtsystemapi.dto.ConfigTableDTO;
 import kr.co.metlife.pseudomgtsystemapi.dto.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import kr.co.metlife.pseudomgtsystemapi.flow.ProjectFlowService;
@@ -27,5 +28,10 @@ public class ProjectController {
     @PostMapping("/save")
     ResponseEntity<ProjectDTO> saveProject(@RequestBody ProjectDTO projectDTO) {
         return ResponseEntity.ok(projectFlowService.saveProject(projectDTO));
+    }
+
+    @PostMapping("/{projectId}/configTable/save")
+    ResponseEntity<ConfigTableDTO> saveConfigTable(@PathVariable String projectId, @RequestBody ConfigTableDTO configTableDTO) {
+        return ResponseEntity.ok(projectFlowService.saveProjectConfigTable(configTableDTO));
     }
 }

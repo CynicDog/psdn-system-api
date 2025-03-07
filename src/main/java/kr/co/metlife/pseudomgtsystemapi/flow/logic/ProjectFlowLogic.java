@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.flow.logic;
 
+import kr.co.metlife.pseudomgtsystemapi.dto.ConfigTableDTO;
 import kr.co.metlife.pseudomgtsystemapi.dto.ProjectDTO;
 import kr.co.metlife.pseudomgtsystemapi.feature.ConfigTableFeatureService;
 import kr.co.metlife.pseudomgtsystemapi.feature.ProjectFeatureService;
@@ -26,7 +27,7 @@ public class ProjectFlowLogic implements ProjectFlowService {
         return projects.stream().map(project -> {
 
             List<ConfigTable> configTables = configTableFeatureService.getConfigTableByProjectId(project.getId());
-            ProjectDTO projectDTO = new ProjectDTO(
+            return new ProjectDTO(
                     project.getId(),
                     project.getUsername(),
                     project.getName(),
@@ -39,8 +40,6 @@ public class ProjectFlowLogic implements ProjectFlowService {
                     project.getFinishTimestamp(),
                     configTables
             );
-
-            return projectDTO;
         }).collect(Collectors.toList());
     }
 
@@ -55,8 +54,8 @@ public class ProjectFlowLogic implements ProjectFlowService {
                 projectDTO.getExplanation(),
                 projectDTO.getUsername()
         );
-        Project savedProject = projectFeatureService.saveProject(project);
 
+        Project savedProject = projectFeatureService.saveProject(project);
         return new ProjectDTO(
                 savedProject.getId(),
                 savedProject.getUsername(),
@@ -69,6 +68,33 @@ public class ProjectFlowLogic implements ProjectFlowService {
                 savedProject.getStartTimestamp(),
                 savedProject.getFinishTimestamp(),
                 List.of()
+        );
+    }
+
+    @Override
+    public ConfigTableDTO saveProjectConfigTable(ConfigTableDTO configTableDTO) {
+
+        ConfigTable configTable = new ConfigTable(
+                configTableDTO.getProjectId(),
+                configTableDTO.getTableId(),
+                configTableDTO.getName(),
+                configTableDTO.getLogicalName(),
+                configTableDTO.getExplanation(),
+                configTableDTO.getIteration(),
+                configTableDTO.getSequence(),
+                "TODO: JohnDoe"
+        );
+
+        ConfigTable savedConfigTable = configTableFeatureService.saveConfigTable(configTable);
+        return new ConfigTableDTO(
+                savedConfigTable.getId(),
+                savedConfigTable.getProjectId(),
+                savedConfigTable.getTableId(),
+                savedConfigTable.getName(),
+                savedConfigTable.getLogicalName(),
+                savedConfigTable.getExplanation(),
+                savedConfigTable.getIteration(),
+                savedConfigTable.getSequence()
         );
     }
 }
