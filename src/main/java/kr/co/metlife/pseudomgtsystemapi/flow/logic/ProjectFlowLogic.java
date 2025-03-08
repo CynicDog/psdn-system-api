@@ -46,17 +46,35 @@ public class ProjectFlowLogic implements ProjectFlowService {
 
     @Override
     public ProjectDTO saveProject(ProjectDTO projectDTO) {
+        Project project = projectDTO.getId() != null
+                ? projectFeatureService.findProjectById(projectDTO.getId()).orElse(null)
+                : null;
 
-        Project project = new Project(
-                projectDTO.getUsername(),
-                projectDTO.getName(),
-                projectDTO.getSequence(),
-                projectDTO.getStatus(),
-                projectDTO.getExplanation(),
-                projectDTO.getUsername()
-        );
+        if (project == null) {
+            // Create a new Project if it doesn't exist
+            project = new Project();
+            project.setUsername(projectDTO.getUsername());
+            project.setName(projectDTO.getName());
+            project.setExplanation( projectDTO.getExplanation());
+            project.setSequence(projectDTO.getSequence());
+            project.setStatus(projectDTO.getStatus());
+            project.setStartTimestamp(projectDTO.getStartTimestamp());
+            project.setInputUsername("TODO: JohnDoe");
 
+        } else {
+            // Update existing Project
+            project.setUsername(projectDTO.getUsername() != null ? projectDTO.getUsername() : project.getUsername());
+            project.setName(projectDTO.getName() != null ? projectDTO.getName() : project.getName());
+            project.setExplanation(projectDTO.getExplanation() != null ? projectDTO.getExplanation() : project.getExplanation());
+            project.setSequence(projectDTO.getSequence() != null ? projectDTO.getSequence() : project.getSequence());
+            project.setStatus(projectDTO.getStatus() != null ? projectDTO.getStatus() : project.getStatus());
+            project.setStartTimestamp(projectDTO.getStartTimestamp() != null ? projectDTO.getStartTimestamp() : project.getStartTimestamp());
+            project.setUpdateUsername("TODO: JohnDoe");
+        }
+
+        // Save the updated or newly created Project
         Project savedProject = projectFeatureService.saveProject(project);
+
         return new ProjectDTO(
                 savedProject.getId(),
                 savedProject.getUsername(),
@@ -80,18 +98,7 @@ public class ProjectFlowLogic implements ProjectFlowService {
 
         if (configTable == null) {
             // Create a new ConfigTable if it doesn't exist
-            configTable = new ConfigTable(
-                    configTableDTO.getProjectId(),
-                    configTableDTO.getTableId(),
-                    configTableDTO.getName(),
-                    configTableDTO.getLogicalName(),
-                    configTableDTO.getExplanation(),
-                    configTableDTO.getIteration(),
-                    configTableDTO.getSequence(),
-                    "TODO: JohnDoe"
-            );
-        } else {
-            // Update existing ConfigTable
+            configTable = new ConfigTable();
             configTable.setProjectId(configTableDTO.getProjectId());
             configTable.setTableId(configTableDTO.getTableId());
             configTable.setName(configTableDTO.getName());
@@ -99,6 +106,17 @@ public class ProjectFlowLogic implements ProjectFlowService {
             configTable.setExplanation(configTableDTO.getExplanation());
             configTable.setIteration(configTableDTO.getIteration());
             configTable.setSequence(configTableDTO.getSequence());
+            configTable.setInputUsername("TODO: JohnDoe");
+        } else {
+            // Update only the non-null properties
+            configTable.setProjectId(configTableDTO.getProjectId() != null ? configTableDTO.getProjectId() : configTable.getProjectId());
+            configTable.setTableId(configTableDTO.getTableId() != null ? configTableDTO.getTableId() : configTable.getTableId());
+            configTable.setName(configTableDTO.getName() != null ? configTableDTO.getName() : configTable.getName());
+            configTable.setLogicalName(configTableDTO.getLogicalName() != null ? configTableDTO.getLogicalName() : configTable.getLogicalName());
+            configTable.setExplanation(configTableDTO.getExplanation() != null ? configTableDTO.getExplanation() : configTable.getExplanation());
+            configTable.setIteration(configTableDTO.getIteration() != null ? configTableDTO.getIteration() : configTable.getIteration());
+            configTable.setSequence(configTableDTO.getSequence() != null ? configTableDTO.getSequence() : configTable.getSequence());
+            configTable.setUpdateUsername("TODO: JohnDoe");
         }
 
         // Save the updated or newly created ConfigTable
@@ -115,5 +133,4 @@ public class ProjectFlowLogic implements ProjectFlowService {
                 savedConfigTable.getSequence()
         );
     }
-
 }

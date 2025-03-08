@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,5 +28,10 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
     @Override
     public Project saveProject(Project project) {
         return projectRepository.save(project);
+    }
+
+    @Override
+    public Optional<Project> findProjectById(String projectId) {
+        return projectRepository.findById(projectId);
     }
 }
