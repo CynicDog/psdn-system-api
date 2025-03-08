@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ConfigTableRepository extends JpaRepository<ConfigTable, UUID> {
+public interface ConfigTableRepository extends JpaRepository<ConfigTable, String> {
     List<ConfigTable> findAllByProjectId(String projectId);
 }

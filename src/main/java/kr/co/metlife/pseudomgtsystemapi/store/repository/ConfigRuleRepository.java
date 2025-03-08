@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface ConfigRuleRepository extends JpaRepository<ConfigRule, UUID> {
+public interface ConfigRuleRepository extends JpaRepository<ConfigRule, String> {
 }

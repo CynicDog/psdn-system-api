@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface ParameterRepository extends JpaRepository<Parameter, UUID> {
+public interface ParameterRepository extends JpaRepository<Parameter, String> {
     Parameter findByAttributeName (String attributeName);
 }

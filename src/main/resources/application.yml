@@ -19,7 +19,7 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;databaseName=MLPNZD;encrypt=false;
     username: sa
-    password: SomePassword5@
+    password: SomePassword1@
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   # Hibernate Settings
   jpa:

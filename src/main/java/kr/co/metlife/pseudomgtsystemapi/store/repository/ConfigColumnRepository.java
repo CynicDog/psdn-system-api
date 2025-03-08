@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface ConfigColumnRepository extends JpaRepository<ConfigColumn, UUID> {
+public interface ConfigColumnRepository extends JpaRepository<ConfigColumn, String> {
 }

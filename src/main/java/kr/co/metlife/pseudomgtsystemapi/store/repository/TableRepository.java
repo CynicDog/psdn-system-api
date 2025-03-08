@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface TableRepository extends JpaRepository<Table, UUID> {
+public interface TableRepository extends JpaRepository<Table, String> {
     Table findByName(String name);
 }

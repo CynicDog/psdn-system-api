@@ -6,7 +6,9 @@ import kr.co.metlife.pseudomgtsystemapi.store.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -16,7 +18,10 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
 
     @Override
     public List<Project> getProjectsByUsername(String username) {
-        return projectRepository.findAllByUsername(username);
+        return projectRepository.findAllByUsername(username)
+                .stream()
+                .sorted(Comparator.comparing(Project::getSequence).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override

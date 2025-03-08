@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -73,19 +74,36 @@ public class ProjectFlowLogic implements ProjectFlowService {
 
     @Override
     public ConfigTableDTO saveProjectConfigTable(ConfigTableDTO configTableDTO) {
+        ConfigTable configTable = configTableDTO.getId() != null
+                ? configTableFeatureService.findConfigTableById(configTableDTO.getId()).orElse(null)
+                : null;
 
-        ConfigTable configTable = new ConfigTable(
-                configTableDTO.getProjectId(),
-                configTableDTO.getTableId(),
-                configTableDTO.getName(),
-                configTableDTO.getLogicalName(),
-                configTableDTO.getExplanation(),
-                configTableDTO.getIteration(),
-                configTableDTO.getSequence(),
-                "TODO: JohnDoe"
-        );
+        if (configTable == null) {
+            // Create a new ConfigTable if it doesn't exist
+            configTable = new ConfigTable(
+                    configTableDTO.getProjectId(),
+                    configTableDTO.getTableId(),
+                    configTableDTO.getName(),
+                    configTableDTO.getLogicalName(),
+                    configTableDTO.getExplanation(),
+                    configTableDTO.getIteration(),
+                    configTableDTO.getSequence(),
+                    "TODO: JohnDoe"
+            );
+        } else {
+            // Update existing ConfigTable
+            configTable.setProjectId(configTableDTO.getProjectId());
+            configTable.setTableId(configTableDTO.getTableId());
+            configTable.setName(configTableDTO.getName());
+            configTable.setLogicalName(configTableDTO.getLogicalName());
+            configTable.setExplanation(configTableDTO.getExplanation());
+            configTable.setIteration(configTableDTO.getIteration());
+            configTable.setSequence(configTableDTO.getSequence());
+        }
 
+        // Save the updated or newly created ConfigTable
         ConfigTable savedConfigTable = configTableFeatureService.saveConfigTable(configTable);
+
         return new ConfigTableDTO(
                 savedConfigTable.getId(),
                 savedConfigTable.getProjectId(),
@@ -97,4 +115,5 @@ public class ProjectFlowLogic implements ProjectFlowService {
                 savedConfigTable.getSequence()
         );
     }
+
 }
