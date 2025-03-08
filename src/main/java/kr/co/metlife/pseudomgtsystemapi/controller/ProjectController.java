@@ -32,6 +32,18 @@ public class ProjectController {
 
     @PostMapping("/{projectId}/configTable/save")
     ResponseEntity<ConfigTableDTO> saveConfigTable(@PathVariable String projectId, @RequestBody ConfigTableDTO configTableDTO) {
-        return ResponseEntity.ok(projectFlowService.saveProjectConfigTable(configTableDTO));
+        return ResponseEntity.ok(projectFlowService.saveProjectConfigTable(projectId, configTableDTO));
+    }
+
+    @DeleteMapping("/{projectId}/configTables/{configTableId}/delete")
+    ResponseEntity<Void> deleteConfigTable(@PathVariable String projectId, @PathVariable String configTableId) {
+        projectFlowService.deleteProjectConfigTable(projectId, configTableId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{projectId}/delete")
+    ResponseEntity<Void> deleteProject(@PathVariable String projectId) {
+        projectFlowService.deleteProject(projectId);
+        return ResponseEntity.noContent().build();
     }
 }

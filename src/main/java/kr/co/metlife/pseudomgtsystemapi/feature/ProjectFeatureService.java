@@ -12,4 +12,6 @@ public interface ProjectFeatureService {
     Project saveProject(Project project);
 
     Optional<Project> findProjectById(String projectId);
+
+    void deleteProject(String projectId);
 }

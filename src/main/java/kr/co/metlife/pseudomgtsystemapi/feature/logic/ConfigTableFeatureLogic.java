@@ -16,7 +16,7 @@ public class ConfigTableFeatureLogic implements ConfigTableFeatureService {
     private final ConfigTableRepository configTableRepository;
 
     @Override
-    public List<ConfigTable> getConfigTableByProjectId(String projectId) {
+    public List<ConfigTable> getConfigTablesByProjectId(String projectId) {
         return configTableRepository.findAllByProjectId(projectId);
     }
 
@@ -28,5 +28,10 @@ public class ConfigTableFeatureLogic implements ConfigTableFeatureService {
     @Override
     public Optional<ConfigTable> findConfigTableById(String configTableId) {
         return configTableRepository.findById(configTableId);
+    }
+
+    @Override
+    public void deleteConfigTable(String configTableId) {
+        configTableRepository.deleteById(configTableId);
     }
 }

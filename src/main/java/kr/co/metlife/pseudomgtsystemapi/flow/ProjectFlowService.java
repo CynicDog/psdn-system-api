@@ -11,5 +11,9 @@ public interface ProjectFlowService {
 
     ProjectDTO saveProject(ProjectDTO projectDTO);
 
-    ConfigTableDTO saveProjectConfigTable(ConfigTableDTO configTableDTO);
+    ConfigTableDTO saveProjectConfigTable(String projectId, ConfigTableDTO configTableDTO);
+
+    void deleteProjectConfigTable(String projectId, String configTableId);
+
+    void deleteProject(String projectId);
 }

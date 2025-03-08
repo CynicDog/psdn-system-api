@@ -7,9 +7,11 @@ import java.util.Optional;
 
 public interface ConfigTableFeatureService {
 
-    List<ConfigTable> getConfigTableByProjectId(String projectId);
+    List<ConfigTable> getConfigTablesByProjectId(String projectId);
 
     ConfigTable saveConfigTable(ConfigTable configTable);
 
     Optional<ConfigTable> findConfigTableById(String configTableId);
+
+    void deleteConfigTable(String configTableId);
 }

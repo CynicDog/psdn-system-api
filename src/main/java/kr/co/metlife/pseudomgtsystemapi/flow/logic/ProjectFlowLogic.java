@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +26,7 @@ public class ProjectFlowLogic implements ProjectFlowService {
         var projects = projectFeatureService.getProjectsByUsername(username);
         return projects.stream().map(project -> {
 
-            List<ConfigTable> configTables = configTableFeatureService.getConfigTableByProjectId(project.getId());
+            List<ConfigTable> configTables = configTableFeatureService.getConfigTablesByProjectId(project.getId());
             return new ProjectDTO(
                     project.getId(),
                     project.getUsername(),
@@ -91,7 +90,7 @@ public class ProjectFlowLogic implements ProjectFlowService {
     }
 
     @Override
-    public ConfigTableDTO saveProjectConfigTable(ConfigTableDTO configTableDTO) {
+    public ConfigTableDTO saveProjectConfigTable(String projectId, ConfigTableDTO configTableDTO) {
         ConfigTable configTable = configTableDTO.getId() != null
                 ? configTableFeatureService.findConfigTableById(configTableDTO.getId()).orElse(null)
                 : null;
@@ -132,5 +131,21 @@ public class ProjectFlowLogic implements ProjectFlowService {
                 savedConfigTable.getIteration(),
                 savedConfigTable.getSequence()
         );
+    }
+
+    @Override
+    public void deleteProjectConfigTable(String projectId, String configTableId) {
+        configTableFeatureService.deleteConfigTable(configTableId);
+    }
+
+    @Override
+    public void deleteProject(String projectId) {
+
+        List<ConfigTable> configTables = configTableFeatureService.getConfigTablesByProjectId(projectId);
+        configTables.forEach(configTable -> {
+            configTableFeatureService.deleteConfigTable(configTable.getId());
+        });
+
+        projectFeatureService.deleteProject(projectId);
     }
 }

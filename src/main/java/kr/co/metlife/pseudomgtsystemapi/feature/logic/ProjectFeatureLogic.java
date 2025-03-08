@@ -34,4 +34,9 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
     public Optional<Project> findProjectById(String projectId) {
         return projectRepository.findById(projectId);
     }
+
+    @Override
+    public void deleteProject(String projectId) {
+        projectRepository.deleteById(projectId);
+    }
 }
