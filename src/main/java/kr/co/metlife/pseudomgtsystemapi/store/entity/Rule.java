@@ -89,13 +89,4 @@ public class Rule {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public Rule(String attributeName, String nameKorean, String nameEnglish, Integer sequence, String explanation, String inputUsername) {
-        this.attributeName = attributeName;
-        this.nameKorean = nameKorean;
-        this.nameEnglish = nameEnglish;
-        this.sequence = sequence;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-    }
 }

@@ -74,11 +74,4 @@ public class CommonCodeGroup {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public CommonCodeGroup(String codeGroupId, String codeGroupName, String explanation, String inputUsername) {
-        this.codeGroupId = codeGroupId;
-        this.codeGroupName = codeGroupName;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-    }
 }

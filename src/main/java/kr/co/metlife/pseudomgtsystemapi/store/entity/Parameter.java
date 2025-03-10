@@ -103,15 +103,4 @@ public class Parameter {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public Parameter(String attributeName, String nameKorean, String nameEnglish, String type, String useCodeGroupId, Object defaultValue, String explanation, String inputUsername) {
-        this.attributeName = attributeName;
-        this.nameKorean = nameKorean;
-        this.nameEnglish = nameEnglish;
-        this.type = type;
-        this.useCodeGroupId = useCodeGroupId;
-        this.defaultValue = defaultValue;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-    }
 }

@@ -172,7 +172,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         parameterRepository.saveAll(parameters);
 
         /* Mock Table "LBF" insert */
-        Table LBF = new Table("LBF", "LBF", "MLPNZD_SYS");
+        Table LBF = Table.builder()
+                .name("LBF")
+                .logicalName("LBF")
+                .inputUsername("MLPNZD_SYS")
+                .build();
+
         tableRepository.save(LBF);
         List<Column> lbfColumns = IntStream.range(0, 50)
                 .mapToObj(i -> Column.builder()
@@ -186,7 +191,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         columnRepository.saveAll(lbfColumns);
 
         /* Mock Table "HLT" insert */
-        Table HLT = new Table("HLT", "HLT", "MLPNZD_SYS");
+        Table HLT = Table.builder()
+                .name("HLT")
+                .logicalName("HLT")
+                .inputUsername("MLPNZD_SYS")
+                .build();
+
         tableRepository.save(HLT);
         List<Column> hltColumns = IntStream.range(0, 60)
                 .mapToObj(i -> Column.builder()
@@ -200,7 +210,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         columnRepository.saveAll(hltColumns);
 
         /* Mock Table "KBW" insert */
-        Table KBW = new Table("KBW", "KBW", "MLPNZD_SYS");
+        Table KBW = Table.builder()
+                .name("KBW")
+                .logicalName("KBW")
+                .inputUsername("MLPNZD_SYS")
+                .build();
+
         tableRepository.save(KBW);
         List<Column> kbwColumns = IntStream.range(0, 40)
                 .mapToObj(i -> Column.builder()
@@ -220,7 +235,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("JohnDoe")
                             .name("Project - 1")
-                            .sequence(1)
+                            .sequence(0)
                             .status(Project.Status.APPROVED.name())
                             .explanation("JohnDoe's First Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -232,7 +247,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("JohnDoe")
                             .name("Project - 2")
-                            .sequence(2)
+                            .sequence(1)
                             .status(Project.Status.PENDING.name())
                             .explanation("JohnDoe's Second Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -244,7 +259,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("JohnDoe")
                             .name("Project - 3")
-                            .sequence(3)
+                            .sequence(2)
                             .status(Project.Status.FINISHED.name())
                             .explanation("JohnDoe's Third Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -256,7 +271,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("JohnDoe")
                             .name("Project - 4")
-                            .sequence(4)
+                            .sequence(3)
                             .status(Project.Status.WRITING.name())
                             .explanation("JohnDoe's Fourth Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -343,7 +358,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("kyrsang0801")
                             .name("Project - 1")
-                            .sequence(1)
+                            .sequence(0)
                             .status(Project.Status.APPROVED.name())
                             .explanation("kyrsang0801's First Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -355,7 +370,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("kyrsang0801")
                             .name("Project - 2")
-                            .sequence(2)
+                            .sequence(1)
                             .status(Project.Status.PENDING.name())
                             .explanation("kyrsang0801's Second Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -367,7 +382,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("kyrsang0801")
                             .name("Project - 3")
-                            .sequence(3)
+                            .sequence(2)
                             .status(Project.Status.FINISHED.name())
                             .explanation("kyrsang0801's Third Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -379,7 +394,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     Project.builder()
                             .username("kyrsang0801")
                             .name("Project - 4")
-                            .sequence(4)
+                            .sequence(3)
                             .status(Project.Status.WRITING.name())
                             .explanation("kyrsang0801's Fourth Project.")
                             .inputUsername("MLPNZD_SYS")
@@ -388,6 +403,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                             .finishTimestamp(null)
                             .build()
             );
+
             projectRepository.saveAll(kyrsangProjects);
 
             List<ConfigTable> kyrsangConfigTables = List.of(

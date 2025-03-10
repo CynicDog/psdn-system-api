@@ -112,18 +112,6 @@ public class Project {
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
 
-    public Project(String username, String name, Integer sequence, String status, String explanation, String inputUsername, LocalDateTime approveTimestamp, LocalDateTime startTimestamp, LocalDateTime finishTimestamp) {
-        this.name = name;
-        this.username = username;
-        this.sequence = sequence;
-        this.status = status;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-        this.approveTimestamp = approveTimestamp;
-        this.startTimestamp = startTimestamp;
-        this.finishTimestamp = finishTimestamp;
-    }
-
     public static enum Status {
         WRITING,
         PENDING,

@@ -105,12 +105,4 @@ public class Column {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @jakarta.persistence.Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public Column(String tableId, String name, String logicalName, String dataType, String inputUsername) {
-        this.tableId = tableId;
-        this.name = name;
-        this.logicalName = logicalName;
-        this.dataType = dataType;
-        this.inputUsername = inputUsername;
-    }
 }

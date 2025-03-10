@@ -86,13 +86,4 @@ public class CommonCodeDetail {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public CommonCodeDetail(String codeGroupId, String code, String codeName, Integer codeSequence, String explanation, String inputUsername) {
-        this.codeGroupId = codeGroupId;
-        this.code = code;
-        this.codeName = codeName;
-        this.codeSequence = codeSequence;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-    }
 }

@@ -102,15 +102,4 @@ public class ConfigTable {
     @Convert(converter= StringToLocalDateTimeConverter.class)
     @Column(name = "UPDATE_TIMESTAMP", columnDefinition = "DATETIME2(3)")
     private LocalDateTime updateTimestamp;
-
-    public ConfigTable(String projectId, String tableId, String name, String logicalName, String explanation, Integer iteration, Integer sequence, String inputUsername) {
-        this.projectId = projectId;
-        this.tableId = tableId;
-        this.name = name;
-        this.logicalName = logicalName;
-        this.explanation = explanation;
-        this.iteration = iteration;
-        this.sequence = sequence;
-        this.inputUsername = inputUsername;
-    }
 }

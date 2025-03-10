@@ -21,7 +21,7 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
     public List<Project> getProjectsByUsername(String username) {
         return projectRepository.findAllByUsername(username)
                 .stream()
-                .sorted(Comparator.comparing(Project::getSequence).reversed())
+                .sorted(Comparator.comparing(Project::getSequence))
                 .collect(Collectors.toList());
     }
 

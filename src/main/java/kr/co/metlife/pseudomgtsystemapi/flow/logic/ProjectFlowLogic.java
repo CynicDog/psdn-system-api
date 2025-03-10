@@ -96,6 +96,13 @@ public class ProjectFlowLogic implements ProjectFlowService {
     }
 
     @Override
+    public List<ProjectDTO> saveAllProjects(List<ProjectDTO> projectDTOList) {
+        return projectDTOList.stream()
+                .map(this::saveProject)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ConfigTableDTO saveProjectConfigTable(String projectId, ConfigTableDTO configTableDTO) {
         ConfigTable configTable = configTableDTO.getId() != null
                 ? configTableFeatureService.findConfigTableById(configTableDTO.getId()).orElse(null)
