@@ -20,18 +20,19 @@ public class RuleFlowLogic implements RuleFlowService {
         return ruleFeatureService
                 .getRules()
                 .stream()
-                .map(rule -> new RuleDTO(
-                        rule.getId(),
-                        rule.getAttributeName(),
-                        rule.getNameKorean(),
-                        rule.getNameEnglish(),
-                        rule.getSequence(),
-                        rule.getExplanation(),
-                        rule.getInputUsername(),
-                        rule.getInputTimestamp(),
-                        rule.getUpdateUsername(),
-                        rule.getUpdateTimestamp()
-                ))
+                .map(rule -> RuleDTO.builder()
+                        .id(rule.getId())
+                        .attributeName(rule.getAttributeName())
+                        .nameKorean(rule.getNameKorean())
+                        .nameEnglish(rule.getNameEnglish())
+                        .sequence(rule.getSequence())
+                        .explanation(rule.getExplanation())
+                        .inputUsername(rule.getInputUsername())
+                        .inputTimestamp(rule.getInputTimestamp())
+                        .updateUsername(rule.getUpdateUsername())
+                        .updateTimestamp(rule.getUpdateTimestamp())
+                        .build()
+                )
                 .collect(Collectors.toList());
     }
 }

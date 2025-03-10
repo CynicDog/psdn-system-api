@@ -20,19 +20,20 @@ public class ParameterFlowLogic implements ParameterFlowService {
         return parameterFeatureService
                 .getParameters()
                 .stream()
-                .map(parameter -> new ParameterDTO(
-                        parameter.getId(),
-                        parameter.getAttributeName(),
-                        parameter.getNameKorean(),
-                        parameter.getNameEnglish(),
-                        parameter.getType(),
-                        parameter.getDefaultValue(),
-                        parameter.getExplanation(),
-                        parameter.getInputUsername(),
-                        parameter.getInputTimestamp(),
-                        parameter.getUpdateUsername(),
-                        parameter.getUpdateTimestamp()
-                ))
+                .map(parameter -> ParameterDTO.builder()
+                        .id(parameter.getId())
+                        .attributeName(parameter.getAttributeName())
+                        .nameKorean(parameter.getNameKorean())
+                        .nameEnglish(parameter.getNameEnglish())
+                        .type(parameter.getType())
+                        .defaultValue(parameter.getDefaultValue())
+                        .explanation(parameter.getExplanation())
+                        .inputUsername(parameter.getInputUsername())
+                        .inputTimestamp(parameter.getInputTimestamp())
+                        .updateUsername(parameter.getUpdateUsername())
+                        .updateTimestamp(parameter.getUpdateTimestamp())
+                        .build()
+                )
                 .collect(Collectors.toList());
     }
 }

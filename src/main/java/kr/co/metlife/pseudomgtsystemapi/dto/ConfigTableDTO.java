@@ -1,11 +1,13 @@
 package kr.co.metlife.pseudomgtsystemapi.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
+@Builder
 public class ConfigTableDTO implements Cloneable, Serializable {
 
     @Serial
@@ -24,15 +26,4 @@ public class ConfigTableDTO implements Cloneable, Serializable {
     private String explanation;
     private Integer iteration;
     private Integer sequence;
-
-    public ConfigTableDTO(String id, String projectId, String tableId, String name, String logicalName, String explanation, Integer iteration, Integer sequence) {
-        this.id = id;
-        this.projectId = projectId;
-        this.tableId = tableId;
-        this.name = name;
-        this.logicalName = logicalName;
-        this.explanation = explanation;
-        this.iteration = iteration;
-        this.sequence = sequence;
-    }
 }

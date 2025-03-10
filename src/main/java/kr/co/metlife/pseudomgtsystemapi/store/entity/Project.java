@@ -124,15 +124,6 @@ public class Project {
         this.finishTimestamp = finishTimestamp;
     }
 
-    public Project(String username, String name, Integer sequence, String status, String explanation, String inputUsername) {
-        this.username = username;
-        this.name = name;
-        this.sequence = sequence;
-        this.status = status;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-    }
-
     public static enum Status {
         WRITING,
         PENDING,

@@ -20,15 +20,16 @@ public class TableFlowLogic implements TableFlowService {
         return tableFeatureService
                 .getTables()
                 .stream()
-                .map(table -> new TableDTO(
-                        table.getId(),
-                        table.getName(),
-                        table.getLogicalName(),
-                        table.getInputUsername(),
-                        table.getInputTimestamp(),
-                        table.getUpdateUsername(),
-                        table.getUpdateTimestamp()
-                ))
+                .map(table -> TableDTO.builder()
+                        .id(table.getId())
+                        .name(table.getName())
+                        .logicalName(table.getLogicalName())
+                        .inputUsername(table.getInputUsername())
+                        .inputTimestamp(table.getInputTimestamp())
+                        .updateUsername(table.getUpdateUsername())
+                        .updateTimestamp(table.getUpdateTimestamp())
+                        .build()
+                )
                 .collect(Collectors.toList());
     }
 }

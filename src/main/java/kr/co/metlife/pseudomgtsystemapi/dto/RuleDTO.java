@@ -1,5 +1,6 @@
 package kr.co.metlife.pseudomgtsystemapi.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serial;
@@ -7,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class RuleDTO implements Cloneable, Serializable {
 
     @Serial
@@ -27,17 +29,4 @@ public class RuleDTO implements Cloneable, Serializable {
     private LocalDateTime inputTimestamp;
     private String updateUsername;
     private LocalDateTime updateTimestamp;
-
-    public RuleDTO(String id, String attributeName, String nameKorean, String nameEnglish, Integer sequence, String explanation, String inputUsername, LocalDateTime inputTimestamp, String updateUsername, LocalDateTime updateTimestamp) {
-        this.id = id;
-        this.attributeName = attributeName;
-        this.nameKorean = nameKorean;
-        this.nameEnglish = nameEnglish;
-        this.sequence = sequence;
-        this.explanation = explanation;
-        this.inputUsername = inputUsername;
-        this.inputTimestamp = inputTimestamp;
-        this.updateUsername = updateUsername;
-        this.updateTimestamp = updateTimestamp;
-    }
 }
