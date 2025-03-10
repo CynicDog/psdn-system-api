@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface ProjectFeatureService {
 
+    List<Project> getAllProjects();
+
     List<Project> getProjectsByUsername(String username);
 
     Project saveProject(Project project);

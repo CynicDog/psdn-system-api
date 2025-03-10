@@ -21,9 +21,31 @@ public class ProjectFlowLogic implements ProjectFlowService {
     private final ConfigTableFeatureService configTableFeatureService;
 
     @Override
+    public List<ProjectDTO> getAllProjects() {
+        var projects = projectFeatureService.getAllProjects();
+        return projects.stream()
+                .map(project -> {
+                    List<ConfigTable> configTables = configTableFeatureService.getConfigTablesByProjectId(project.getId());
+                    return ProjectDTO.builder()
+                            .id(project.getId())
+                            .username(project.getUsername())
+                            .name(project.getName())
+                            .sequence(project.getSequence())
+                            .status(project.getStatus())
+                            .explanation(project.getExplanation())
+                            .createTimestamp(project.getCreateTimestamp())
+                            .approveTimestamp(project.getApproveTimestamp())
+                            .startTimestamp(project.getStartTimestamp())
+                            .finishTimestamp(project.getFinishTimestamp())
+                            .configTables(configTables)
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProjectDTO> getProjectsByUsername(String username) {
         var projects = projectFeatureService.getProjectsByUsername(username);
-
         return projects.stream()
                 .map(project -> {
                     List<ConfigTable> configTables = configTableFeatureService.getConfigTablesByProjectId(project.getId());

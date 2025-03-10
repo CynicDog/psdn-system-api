@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProjectFlowService {
 
+    List<ProjectDTO> getAllProjects();
+
     List<ProjectDTO> getProjectsByUsername(String username);
 
     ProjectDTO saveProject(ProjectDTO projectDTO);

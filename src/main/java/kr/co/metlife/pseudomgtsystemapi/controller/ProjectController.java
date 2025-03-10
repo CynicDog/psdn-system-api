@@ -17,12 +17,17 @@ public class ProjectController {
     private final ProjectFlowService projectFlowService;
 
     /**
-     * @description 사용자의 프로젝트를 조회합니다.
-     * @example http GET :8999/v1/tenants/KOREA/KUDP/system/projects?username=JohnDoe
+     * @description 전체 또는 사용자별 프로젝트를 조회합니다.
+     * @example
+     *  http GET :8999/v1/tenants/KOREA/KUDP/system/projects
+     *  http GET :8999/v1/tenants/KOREA/KUDP/system/projects?username=JohnDoe
      */
-    @GetMapping()
-    ResponseEntity<List<ProjectDTO>> getProjectsByUsername(@RequestParam String username) {
-        return ResponseEntity.ok(projectFlowService.getProjectsByUsername(username));
+    @GetMapping
+    ResponseEntity<List<ProjectDTO>> getProjects(@RequestParam(required = false) String username) {
+        if (username != null) {
+            return ResponseEntity.ok(projectFlowService.getProjectsByUsername(username));
+        }
+        return ResponseEntity.ok(projectFlowService.getAllProjects());
     }
 
     /**

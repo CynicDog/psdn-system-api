@@ -18,6 +18,14 @@ public class ProjectFeatureLogic implements ProjectFeatureService {
     private final ProjectRepository projectRepository;
 
     @Override
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Project::getCreateTimestamp).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Project> getProjectsByUsername(String username) {
         return projectRepository.findAllByUsername(username)
                 .stream()
