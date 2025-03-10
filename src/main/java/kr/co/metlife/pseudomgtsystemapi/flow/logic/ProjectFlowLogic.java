@@ -70,7 +70,10 @@ public class ProjectFlowLogic implements ProjectFlowService {
                     .explanation(projectDTO.getExplanation() != null ? projectDTO.getExplanation() : project.getExplanation())
                     .sequence(projectDTO.getSequence() != null ? projectDTO.getSequence() : project.getSequence())
                     .status(projectDTO.getStatus() != null ? projectDTO.getStatus() : project.getStatus())
+                    .createTimestamp(projectDTO.getCreateTimestamp() != null ? projectDTO.getCreateTimestamp() : project.getCreateTimestamp())
                     .startTimestamp(projectDTO.getStartTimestamp() != null ? projectDTO.getStartTimestamp() : project.getStartTimestamp())
+                    .approveTimestamp(projectDTO.getApproveTimestamp() != null ? projectDTO.getApproveTimestamp() : project.getApproveTimestamp())
+                    .finishTimestamp(projectDTO.getFinishTimestamp() != null ? projectDTO.getFinishTimestamp() : project.getFinishTimestamp())
                     .inputUsername(project.getInputUsername())
                     .updateUsername("TODO: JohnDoe")
                     .build();
